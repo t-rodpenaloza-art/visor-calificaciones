@@ -1,0 +1,120 @@
+<div class="tarjeta-seguimiento" [class.expandida]="vistaExpandida">
+  
+  <!-- ========== VISTA COLAPSADA ========== -->
+  <ng-container *ngIf="!vistaExpandida">
+    
+    <!-- Header de la tarjeta -->
+    <div class="tarjeta-header">
+      <div class="icono-container">
+        <span class="material-icons">person_search</span>
+      </div>
+      <h2 class="header-titulo">Seguimiento de estudiantes</h2>
+      <button type="button" class="btn-expandir" aria-label="Expandir" (click)="expandirVista()">
+        <span class="material-symbols-outlined">zoom_out_map</span>
+      </button>
+    </div>
+
+    <!-- Contenido -->
+    <div class="tarjeta-contenido">
+      <!-- Botón para abrir el buscador -->
+      <button 
+        type="button" 
+        class="btn-realizar-busqueda"
+        (click)="expandirVista()">
+        <span>Realizar búsqueda de estudiante</span>
+        <span class="btn-arrow">›</span>
+      </button>
+
+      <!-- Título de sección -->
+      <h3 class="seccion-titulo">Mis grupos de mentoría</h3>
+
+      <!-- Lista de grupos -->
+      <button
+        *ngFor="let grupo of gruposMentoria"
+        type="button"
+        class="grupo-card"
+        (click)="abrirGrupo(grupo)">
+        <span class="grupo-nombre">{{ grupo.nombre }}</span>
+        <div class="grupo-derecha">
+          <span class="grupo-clave">{{ grupo.clave }}</span>
+          <span class="grupo-arrow">›</span>
+        </div>
+      </button>
+    </div>
+  </ng-container>
+
+  <!-- ========== VISTA EXPANDIDA ========== -->
+  <ng-container *ngIf="vistaExpandida">
+    
+    <!-- Header expandido -->
+    <div class="tarjeta-header expandida-header">
+      <button 
+        type="button" 
+        class="btn-regresar"
+        (click)="colapsarVista()"
+        aria-label="Regresar">
+        <span class="material-symbols-outlined">chevron_left</span>
+      </button>
+      <div class="icono-container">
+        <span class="material-icons">person_search</span>
+      </div>
+      <div class="header-info">
+        <h2 class="header-titulo">Seguimiento de estudiantes</h2>
+        <span class="header-subtitulo">Seguimiento de estudiantes</span>
+      </div>
+      <div class="header-acciones">
+        <button type="button" class="btn-accion" aria-label="Feedback">
+          <span class="material-symbols-outlined">tag_faces</span>
+        </button>
+        <button type="button" class="btn-accion" aria-label="Información">
+          <span class="material-icons">info</span>
+        </button>
+        <button type="button" class="btn-accion" aria-label="Expandir">
+          <span class="material-symbols-outlined">zoom_in_map</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenido expandido -->
+    <div class="contenido-expandido">
+      <!-- Panel izquierdo: Formulario de búsqueda -->
+      <div class="panel-busqueda">
+        <app-buscador-estudiantes
+          [criterios]="criteriosBusqueda"
+          (buscar)="realizarBusqueda($event)"
+          (limpiar)="limpiarBusqueda()">
+        </app-buscador-estudiantes>
+      </div>
+
+      <!-- Panel derecho: Resultados o Grupos -->
+      <div class="panel-resultados">
+        <!-- Muestro resultados si hay búsqueda realizada -->
+        <ng-container *ngIf="busquedaRealizada">
+          <app-resultados-busqueda
+            [estudiantes]="estudiantesEncontrados"
+            [busquedaRealizada]="busquedaRealizada"
+            (estudianteSeleccionado)="abrirEstudiante($event)"
+            (volver)="limpiarBusqueda()">
+          </app-resultados-busqueda>
+        </ng-container>
+
+        <!-- Muestro grupos si no hay búsqueda -->
+        <ng-container *ngIf="!busquedaRealizada">
+          <h3 class="seccion-titulo">Mis grupos de mentoría</h3>
+          
+          <button
+            *ngFor="let grupo of gruposMentoria"
+            type="button"
+            class="grupo-card"
+            (click)="abrirGrupo(grupo)">
+            <span class="grupo-nombre">{{ grupo.nombre }}</span>
+            <div class="grupo-derecha">
+              <span class="grupo-clave">{{ grupo.clave }}</span>
+              <span class="grupo-arrow">›</span>
+            </div>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>

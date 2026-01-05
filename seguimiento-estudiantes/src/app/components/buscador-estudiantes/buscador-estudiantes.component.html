@@ -1,0 +1,71 @@
+<!-- Formulario de búsqueda de estudiantes -->
+<div class="buscador-container">
+  
+  <!-- Campo Matrícula - RN-02: Búsqueda exacta -->
+  <div class="campo-busqueda">
+    <label for="matricula" class="campo-label">Matrícula</label>
+    <input
+      type="text"
+      id="matricula"
+      class="campo-input"
+      [(ngModel)]="criterios.matricula"
+      (keyup)="buscarConEnter($event)"
+      placeholder=""
+      autocomplete="off">
+  </div>
+
+  <!-- Campo Nombre(s) - RN-03: Búsqueda con "contiene" -->
+  <div class="campo-busqueda">
+    <label for="nombres" class="campo-label">Nombre(s)</label>
+    <input
+      type="text"
+      id="nombres"
+      class="campo-input"
+      [(ngModel)]="criterios.nombres"
+      (keyup)="buscarConEnter($event)"
+      placeholder=""
+      autocomplete="off">
+  </div>
+
+  <!-- Campo Apellido Paterno -->
+  <div class="campo-busqueda">
+    <label for="apellidoPaterno" class="campo-label">Apellido paterno</label>
+    <input
+      type="text"
+      id="apellidoPaterno"
+      class="campo-input"
+      [(ngModel)]="criterios.apellidoPaterno"
+      (keyup)="buscarConEnter($event)"
+      placeholder=""
+      autocomplete="off">
+  </div>
+
+  <!-- Campo Apellido Materno -->
+  <div class="campo-busqueda">
+    <label for="apellidoMaterno" class="campo-label">Apellido materno</label>
+    <input
+      type="text"
+      id="apellidoMaterno"
+      class="campo-input"
+      [(ngModel)]="criterios.apellidoMaterno"
+      (keyup)="buscarConEnter($event)"
+      placeholder=""
+      autocomplete="off">
+  </div>
+
+  <!-- Botones de acción - RN-10 -->
+  <div class="botones-accion">
+    <button 
+      type="button" 
+      class="btn-limpiar"
+      (click)="limpiarFormulario()">
+      Limpiar
+    </button>
+    <button 
+      type="button" 
+      class="btn-buscar"
+      (click)="ejecutarBusqueda()">
+      Buscar
+    </button>
+  </div>
+</div>

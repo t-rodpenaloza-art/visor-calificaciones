@@ -1,0 +1,376 @@
+// ========== VARIABLES DE FIGMA ==========
+$containers-main: #313649;
+$containers-background: #1F222E;
+$container-outline: #373F55;
+$contrasts-50: #617196;
+$contrasts-75: #D3D7E4;
+$contrasts-100: #F6F7F9;
+
+// ========== TARJETA PRINCIPAL ==========
+.tarjeta-seguimiento {
+  width: 100%;
+  max-width: 560px;  // Vista colapsada: 560px
+  margin: 0 auto;    // CENTRAR horizontalmente
+  font-family: 'Poppins', sans-serif;
+  
+  &.expandida {
+    max-width: 1160px;  // Vista expandida: 1160px
+    width: 100%;
+  }
+}
+
+// ========== HEADER ==========
+.tarjeta-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background-color: $containers-main;
+  border: 1px solid $container-outline;
+  border-radius: 24px 24px 0 0;
+}
+
+.header-titulo {
+  flex: 1 0 0;
+  color: #F6F7F9;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 24px;
+  margin: 0;
+}
+// ========== BOTÓN EXPANDIR ==========
+.btn-expandir {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .material-symbols-outlined {
+    font-size: 24px;
+    color: #4599EC; // Color azul de Figma
+  }
+
+  &:hover {
+    .material-symbols-outlined {
+      color: #6bb3f5;
+    }
+  }
+}
+
+// ========== CONTENIDO ==========
+.tarjeta-contenido {
+  background-color: $containers-background;
+  border: 2px solid $container-outline;
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;  // Cambio de center a stretch
+  gap: 12px;
+  box-shadow: 12px 12px 4px 0 rgba(0, 0, 0, 0.33);
+}
+
+// ========== CONTENEDOR ÍCONO PERSON_SEARCH ==========
+.icono-container {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background-color: #000000;
+
+  .material-icons {
+    font-size: 24px;
+    color: #F6F7F9;
+  }
+}
+
+// ========== BOTÓN REALIZAR BÚSQUEDA ==========
+.btn-realizar-busqueda {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: $containers-main;
+  border: 1px solid $contrasts-50;
+  border-radius: 16px;
+  padding: 20px 24px; // Vertical 16px, Horizontal 24px
+  color: $contrasts-100;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  text-align: left;
+
+  &:hover {
+    background-color: #3a4055; // Era lighten($containers-main, 5%)
+    border-color: #7a8bb0;     // Era lighten($contrasts-50, 10%)
+  }
+
+  .btn-arrow {
+    color: $contrasts-100;
+    font-size: 18px;
+    font-weight: 300;
+  }
+}
+
+// ========== TÍTULO DE SECCIÓN ==========
+.seccion-titulo {
+  color: #F6F7F9;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 100;  // Más bold
+  line-height: 21px;
+  margin: 8px 0 4px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #617196;
+}
+
+// ========== CARDS DE GRUPOS ==========
+.grupo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: $containers-main;
+  border: 1px solid $contrasts-50;
+  border-radius: 16px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0;
+  outline: none;
+
+  &:hover {
+    background-color: #3a4055;
+    border-color: #7a8bb0;
+  }
+
+  .grupo-nombre {
+    color: $contrasts-75;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+  }
+
+  .grupo-derecha {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .grupo-clave {
+    color: $contrasts-75;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .grupo-arrow {
+    color: $contrasts-100;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  &:focus {
+    outline: 2px solid #4599EC;
+    outline-offset: 2px;
+  }
+}
+
+// ========== INTERACTIVE ICON BAMBOO ==========
+bmb-interactive-icon {
+  flex-shrink: 0;
+}
+
+// ============================================================================
+// ========== VISTA EXPANDIDA - ESTILOS ADICIONALES ===========================
+// ============================================================================
+
+
+// Header expandido
+.expandida-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background-color: $containers-main;
+  border: 1px solid $container-outline;
+  border-radius: 24px 24px 0 0;
+}
+
+// Botón regresar
+.btn-regresar {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+
+  .material-symbols-outlined {
+    font-size: 24px;
+    color: $contrasts-100;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Información del header (título + subtítulo)
+.header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .header-titulo {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: $contrasts-100;
+    margin: 0;
+  }
+
+  .header-subtitulo {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: $contrasts-75;
+  }
+}
+
+// Botones de acción del header
+.header-acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-accion {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  // Tamaño para tag_faces (24x24)
+  &[aria-label="Feedback"] {
+    width: 24px;
+    height: 24px;
+    
+    .material-symbols-outlined {
+      font-size: 24px;
+      color: $contrasts-100;
+    }
+  }
+
+  // Tamaño para info (28x28) - USA material-icons (filled)
+  &[aria-label="Información"] {
+    width: 28px;
+    height: 28px;
+    
+    .material-icons {
+      font-size: 28px;
+      color: $contrasts-100;
+    }
+  }
+
+  // Tamaño para zoom_in_map (24x24 azul)
+  &[aria-label="Expandir"] {
+    width: 24px;
+    height: 24px;
+    
+    .material-symbols-outlined {
+      font-size: 24px;
+      color: #4599EC;
+    }
+
+    &:hover .material-symbols-outlined {
+      color: #6bb3f5;
+    }
+  }
+}
+
+// ========== CONTENIDO EXPANDIDO (DOS COLUMNAS) ==========
+.contenido-expandido {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  background-color: $containers-background;
+  border: 2px solid $container-outline;
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+  padding: 24px;
+  box-shadow: 12px 12px 4px 0 rgba(0, 0, 0, 0.33);
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+// Panel izquierdo (buscador) - width 390px según Figma
+.panel-busqueda {
+  width: 390px;
+  flex-shrink: 0;
+}
+
+// Panel derecho (resultados/grupos) - CON CONTENEDOR
+.panel-resultados {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 16px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 16px;
+  border: 1px solid $container-outline;
+  background: $containers-main;
+  overflow-y: auto;
+  min-height: 540px;  // Altura mínima para el espacio
+
+  .seccion-titulo {
+    margin-top: 0;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  .grupo-card {
+    width: 100%;
+  }
+
+  app-resultados-busqueda {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
+}
