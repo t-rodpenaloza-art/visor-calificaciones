@@ -1,71 +1,61 @@
-<!-- Formulario de búsqueda de estudiantes -->
 <div class="buscador-container">
-  
-  <!-- Campo Matrícula - RN-02: Búsqueda exacta -->
-  <div class="campo-busqueda">
-    <label for="matricula" class="campo-label">Matrícula</label>
-    <input
-      type="text"
-      id="matricula"
-      class="campo-input"
-      [(ngModel)]="criterios.matricula"
-      (keyup)="buscarConEnter($event)"
-      placeholder=""
-      autocomplete="off">
-  </div>
+  <form [formGroup]="busquedaForm" (ngSubmit)="ejecutarBusqueda()">
+    
+    <!-- Campo Matrícula -->
+    <bmb-input
+      inputId="matricula"
+      name="matricula"
+      label="Matrícula"
+      placeholder="Ej: A00835741"
+      [control]="getFormControl('matricula')"
+      (onChange)="handleInputChange($event)">
+    </bmb-input>
 
-  <!-- Campo Nombre(s) - RN-03: Búsqueda con "contiene" -->
-  <div class="campo-busqueda">
-    <label for="nombres" class="campo-label">Nombre(s)</label>
-    <input
-      type="text"
-      id="nombres"
-      class="campo-input"
-      [(ngModel)]="criterios.nombres"
-      (keyup)="buscarConEnter($event)"
-      placeholder=""
-      autocomplete="off">
-  </div>
+    <!-- Campo Nombre(s) -->
+    <bmb-input
+      inputId="nombres"
+      name="nombres"
+      label="Nombre(s)"
+      placeholder="Ej: Juan Carlos"
+      [control]="getFormControl('nombres')"
+      (onChange)="handleInputChange($event)">
+    </bmb-input>
 
-  <!-- Campo Apellido Paterno -->
-  <div class="campo-busqueda">
-    <label for="apellidoPaterno" class="campo-label">Apellido paterno</label>
-    <input
-      type="text"
-      id="apellidoPaterno"
-      class="campo-input"
-      [(ngModel)]="criterios.apellidoPaterno"
-      (keyup)="buscarConEnter($event)"
-      placeholder=""
-      autocomplete="off">
-  </div>
+    <!-- Campo Apellido Paterno -->
+    <bmb-input
+      inputId="apellidoPaterno"
+      name="apellidoPaterno"
+      label="Apellido paterno"
+      placeholder="Ej: García"
+      [control]="getFormControl('apellidoPaterno')"
+      (onChange)="handleInputChange($event)">
+    </bmb-input>
 
-  <!-- Campo Apellido Materno -->
-  <div class="campo-busqueda">
-    <label for="apellidoMaterno" class="campo-label">Apellido materno</label>
-    <input
-      type="text"
-      id="apellidoMaterno"
-      class="campo-input"
-      [(ngModel)]="criterios.apellidoMaterno"
-      (keyup)="buscarConEnter($event)"
-      placeholder=""
-      autocomplete="off">
-  </div>
+    <!-- Campo Apellido Materno -->
+    <bmb-input
+      inputId="apellidoMaterno"
+      name="apellidoMaterno"
+      label="Apellido materno"
+      placeholder="Ej: López"
+      [control]="getFormControl('apellidoMaterno')"
+      (onChange)="handleInputChange($event)">
+    </bmb-input>
 
-  <!-- Botones de acción - RN-10 -->
-  <div class="botones-accion">
-    <button 
-      type="button" 
-      class="btn-limpiar"
-      (click)="limpiarFormulario()">
-      Limpiar
-    </button>
-    <button 
-      type="button" 
-      class="btn-buscar"
-      (click)="ejecutarBusqueda()">
-      Buscar
-    </button>
-  </div>
+    <!-- Botones de acción - BAMBOO -->
+    <div class="botones-accion">
+      <button 
+        bmbButton 
+        type="button"
+        (click)="limpiarFormulario()">
+        Limpiar
+      </button>
+      <button 
+        bmbButton 
+        type="submit" 
+        appearance="primary">
+        Buscar
+      </button>
+    </div>
+
+  </form>
 </div>

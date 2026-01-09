@@ -1,242 +1,99 @@
-// ========== VARIABLES DE FIGMA ==========
-$containers-main: #313649;
-$containers-background: #1F222E;
-$container-outline: #373F55;
-$contrasts-50: #617196;
-$contrasts-75: #D3D7E4;
-$contrasts-100: #F6F7F9;
+// ============================================================================
+// TARJETA SEGUIMIENTO - ESTILOS
+// Organizado por componentes de Bamboo Design System
+// ============================================================================
 
-// ========== TARJETA PRINCIPAL ==========
+// ============================================================================
+// SECCIÓN 1: VARIABLES DE COLOR (Dark Theme de Bamboo)
+// ============================================================================
+$dark-containers-background: #1F222E;   // Gris (Charade) 900 - Fondo principal
+$dark-containers-main: #313649;          // Gris (Charade) 800 - Cards y contenedores
+$dark-containers-main-hover: #3a4055;    // Hover state
+$dark-container-outline: #373F55;        // Gris (Charade) 700 - Bordes
+$dark-contrasts-100: #D3D7E4;            // Texto principal
+$dark-contrasts-75: #D3D7E4;             // Texto secundario
+$dark-contrasts-50: #617196;             // Texto terciario
+$dark-accent-blue: #2766CB;              // Azul institucional
+
+
+// ============================================================================
+// SECCIÓN 2: CONTENEDOR PRINCIPAL (.tarjeta-seguimiento)
+// ============================================================================
 .tarjeta-seguimiento {
   width: 100%;
-  max-width: 560px;  // Vista colapsada: 560px
-  margin: 0 auto;    // CENTRAR horizontalmente
+  max-width: 560px;
+  margin: 0 auto;
   font-family: 'Poppins', sans-serif;
-  
+
   &.expandida {
-    max-width: 1160px;  // Vista expandida: 1160px
-    width: 100%;
+    max-width: 1160px;
   }
 }
 
-// ========== HEADER ==========
-.tarjeta-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
-  background-color: $containers-main;
-  border: 1px solid $container-outline;
-  border-radius: 24px 24px 0 0;
+
+// ============================================================================
+// SECCIÓN 3: BMB-CARD (Generic Card) - Tarjeta principal
+// Documentación: Generic Card de Bamboo
+// ============================================================================
+.tarjeta-seguimiento {
+  
+  // 3.1 - Card principal (contenedor externo)
+  ::ng-deep > bmb-card > .bmb_card,
+  ::ng-deep .bmb_card {
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 24px;
+    margin: 0;
+    overflow: hidden;
+    box-shadow: none !important;
+  }
+
+  // 3.2 - Header de la card
+  ::ng-deep .bmb_card-header {
+    background-color: $dark-containers-main;
+    border: none;
+    border-radius: 24px 24px 0 0;
+    padding: 16px;
+  }
+
+  // 3.3 - Contenido de la card
+  ::ng-deep .bmb_card-content {
+    background-color: $dark-containers-background;
+    border: 1px solid $dark-container-outline;
+    border-top: none;
+    border-radius: 0 0 24px 24px;
+    padding: 16px;
+  }
 }
 
+
+// ============================================================================
+// SECCIÓN 4: HEADER CONTENT (Layout del header)
+// ============================================================================
+
+// 4.1 - Contenedor flex del header
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+
+  &.expandida {
+    gap: 16px;
+  }
+}
+
+// 4.2 - Título del header
 .header-titulo {
-  flex: 1 0 0;
-  color: #F6F7F9;
-  font-family: 'Poppins', sans-serif;
+  flex: 1;
+  color: $dark-contrasts-100;
   font-size: 16px;
-  font-weight: 100;
+  font-weight: 300;  // Más delgado según Figma (era 100 pero 300 es más legible)
   line-height: 24px;
   margin: 0;
 }
-// ========== BOTÓN EXPANDIR ==========
-.btn-expandir {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 28px;
-  height: 28px;
-  padding: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  .material-symbols-outlined {
-    font-size: 24px;
-    color: #4599EC; // Color azul de Figma
-  }
 
-  &:hover {
-    .material-symbols-outlined {
-      color: #6bb3f5;
-    }
-  }
-}
-
-// ========== CONTENIDO ==========
-.tarjeta-contenido {
-  background-color: $containers-background;
-  border: 2px solid $container-outline;
-  border-top: none;
-  border-radius: 0 0 24px 24px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;  // Cambio de center a stretch
-  gap: 12px;
-  box-shadow: 12px 12px 4px 0 rgba(0, 0, 0, 0.33);
-}
-
-// ========== CONTENEDOR ÍCONO PERSON_SEARCH ==========
-.icono-container {
-  display: flex;
-  width: 48px;
-  height: 48px;
-  padding: 12px;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background-color: #000000;
-
-  .material-icons {
-    font-size: 24px;
-    color: #F6F7F9;
-  }
-}
-
-// ========== BOTÓN REALIZAR BÚSQUEDA ==========
-.btn-realizar-busqueda {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  background-color: $containers-main;
-  border: 1px solid $contrasts-50;
-  border-radius: 16px;
-  padding: 20px 24px; // Vertical 16px, Horizontal 24px
-  color: $contrasts-100;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  text-align: left;
-
-  &:hover {
-    background-color: #3a4055; // Era lighten($containers-main, 5%)
-    border-color: #7a8bb0;     // Era lighten($contrasts-50, 10%)
-  }
-
-  .btn-arrow {
-    color: $contrasts-100;
-    font-size: 18px;
-    font-weight: 300;
-  }
-}
-
-// ========== TÍTULO DE SECCIÓN ==========
-.seccion-titulo {
-  color: #F6F7F9;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 100;  // Más bold
-  line-height: 21px;
-  margin: 8px 0 4px 0;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #617196;
-}
-
-// ========== CARDS DE GRUPOS ==========
-.grupo-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  background-color: $containers-main;
-  border: 1px solid $contrasts-50;
-  border-radius: 16px;
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  text-align: left;
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: 0;
-  outline: none;
-
-  &:hover {
-    background-color: #3a4055;
-    border-color: #7a8bb0;
-  }
-
-  .grupo-nombre {
-    color: $contrasts-75;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-  }
-
-  .grupo-derecha {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .grupo-clave {
-    color: $contrasts-75;
-    font-size: 14px;
-    font-weight: 400;
-  }
-
-  .grupo-arrow {
-    color: $contrasts-100;
-    font-size: 18px;
-    font-weight: 300;
-  }
-
-  &:focus {
-    outline: 2px solid #4599EC;
-    outline-offset: 2px;
-  }
-}
-
-// ========== INTERACTIVE ICON BAMBOO ==========
-bmb-interactive-icon {
-  flex-shrink: 0;
-}
-
-// ============================================================================
-// ========== VISTA EXPANDIDA - ESTILOS ADICIONALES ===========================
-// ============================================================================
-
-
-// Header expandido
-.expandida-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
-  background-color: $containers-main;
-  border: 1px solid $container-outline;
-  border-radius: 24px 24px 0 0;
-}
-
-// Botón regresar
-.btn-regresar {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-
-  .material-symbols-outlined {
-    font-size: 24px;
-    color: $contrasts-100;
-  }
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-}
-
-// Información del header (título + subtítulo)
+// 4.3 - Info del header (vista expandida)
 .header-info {
   flex: 1;
   display: flex;
@@ -244,125 +101,293 @@ bmb-interactive-icon {
   gap: 2px;
 
   .header-titulo {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    color: $contrasts-100;
-    margin: 0;
+    flex: none;
   }
 
   .header-subtitulo {
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
-    color: $contrasts-75;
+    color: $dark-contrasts-75;
   }
 }
 
-// Botones de acción del header
+// 4.4 - Acciones del header (vista expandida)
 .header-acciones {
   display: flex;
   align-items: center;
+  gap: 4px;
+}
+
+
+// ============================================================================
+// SECCIÓN 5: BMB-INTERACTIVE-ICON (Iconos interactivos)
+// Documentación: Interactive Icon de Bamboo
+// HTML: <bmb-interactive-icon [icon]="'person_search'" [appearance]="'mitec_blue'" ...>
+// ============================================================================
+
+// 5.1 - Reset global para todos los interactive-icon
+::ng-deep bmb-interactive-icon {
+  
+  // Caja del icono - ESTA ES LA CLASE PRINCIPAL
+  .bmb_interactive_icon-box {
+    background-color: $dark-accent-blue !important;
+    border-radius: 10px !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  // Icono interno - color blanco
+  .material-symbols-outlined,
+  .material-icons {
+    color: #FFFFFF !important;
+    font-size: 22px !important;
+  }
+}
+
+// 5.2 - Icono principal del header (person_search) - Primer icono
+.header-content > bmb-interactive-icon:first-of-type {
+  ::ng-deep .bmb_interactive_icon-box {
+    width: 40px !important;
+    height: 40px !important;
+    background-color: $dark-accent-blue !important;
+    border-radius: 10px !important;
+  }
+}
+
+// 5.3 - Icono expandir del header (zoom_out_map) - Último icono
+.header-content > bmb-interactive-icon:last-of-type {
+  ::ng-deep .bmb_interactive_icon-box {
+    width: 40px !important;
+    height: 40px !important;
+    background-color: $dark-accent-blue !important;
+    border-radius: 10px !important;
+  }
+}
+
+// 5.4 - Iconos en header-acciones (vista expandida)
+.header-acciones {
+  bmb-interactive-icon {
+    ::ng-deep .bmb_interactive_icon-box {
+      width: 36px !important;
+      height: 36px !important;
+      background-color: transparent !important;
+      border-radius: 8px !important;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+    }
+
+    ::ng-deep .material-symbols-outlined,
+    ::ng-deep .material-icons {
+      color: $dark-contrasts-100 !important;
+      font-size: 20px !important;
+    }
+
+    // Último icono con fondo azul
+    &:last-child {
+      ::ng-deep .bmb_interactive_icon-box {
+        background-color: $dark-accent-blue !important;
+      }
+      
+      ::ng-deep .material-symbols-outlined,
+      ::ng-deep .material-icons {
+        color: #FFFFFF !important;
+      }
+    }
+  }
+}
+
+
+// ============================================================================
+// SECCIÓN 6: BMB-CONTAINER-BUTTON (Botón contenedor)
+// Documentación: Container Button de Bamboo
+// HTML: <bmb-container-button [title]="'Realizar búsqueda'" [iconRight]="'chevron_right'">
+// ============================================================================
+::ng-deep bmb-container-button {
+  display: block;
+  width: 100%;
+
+  // 6.1 - Contenedor principal del botón
+  .bmb_container-button {
+    background-color: $dark-containers-main !important;
+    border: 1px solid $dark-container-outline !important;
+    border-radius: 12px !important;
+    
+    &:hover {
+      background-color: $dark-containers-main-hover !important;
+    }
+  }
+
+  // 6.3 - Título del botón
+  .bmb_container-button-title {
+    color: $dark-contrasts-100 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+  }
+
+  // 6.4 - Iconos del botón
+  .bmb_container-button-icon,
+  .bmb_container-button-icon-right {
+    color: $dark-contrasts-75 !important;
+  }
+}
+
+
+// ============================================================================
+// SECCIÓN 7: SECCIÓN "MIS GRUPOS DE MENTORÍA"
+// ============================================================================
+
+// 7.1 - Header de sección con línea divisora
+.seccion-header {
+  margin-top: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $dark-container-outline;
+  margin-bottom: 12px;
+}
+
+// 7.2 - Título de sección
+.seccion-titulo {
+  color: $dark-contrasts-100;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  margin: 0;
+}
+
+
+// ============================================================================
+// SECCIÓN 8: LISTA DE GRUPOS (usando BMB-CARD como Generic Card)
+// ============================================================================
+
+// 8.1 - Contenedor de la lista
+.grupos-lista {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.btn-accion {
-  background: transparent;
-  border: none;
+// 8.2 - Card individual de cada grupo
+.grupo-card {
   cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+  // Override para bmb-card de grupo
+  ::ng-deep .bmb_card {
+    background-color: $dark-containers-main !important;
+    border: 1px solid $dark-container-outline !important;
+    border-radius: 12px !important;
+    margin: 0 !important;
+    overflow: hidden;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: background-color 0.2s ease;
 
-  // Tamaño para tag_faces (24x24)
-  &[aria-label="Feedback"] {
-    width: 24px;
-    height: 24px;
-    
-    .material-symbols-outlined {
-      font-size: 24px;
-      color: $contrasts-100;
+    &:hover {
+      background-color: $dark-containers-main-hover !important;
     }
-  }
-
-  // Tamaño para info (28x28) - USA material-icons (filled)
-  &[aria-label="Información"] {
-    width: 28px;
-    height: 28px;
     
-    .material-icons {
-      font-size: 28px;
-      color: $contrasts-100;
+    &::before,
+    &::after {
+      display: none !important;
     }
   }
 
-  // Tamaño para zoom_in_map (24x24 azul)
-  &[aria-label="Expandir"] {
-    width: 24px;
-    height: 24px;
-    
-    .material-symbols-outlined {
-      font-size: 24px;
-      color: #4599EC;
-    }
-
-    &:hover .material-symbols-outlined {
-      color: #6bb3f5;
-    }
+  ::ng-deep .bmb_card-content {
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
   }
 }
 
-// ========== CONTENIDO EXPANDIDO (DOS COLUMNAS) ==========
+// 8.3 - Contenido interno del grupo (button para accesibilidad)
+.grupo-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  gap: 16px;
+
+  &:focus {
+    outline: 2px solid #4599EC;
+    outline-offset: -2px;
+    border-radius: 12px;
+  }
+}
+
+// 8.4 - Nombre del grupo (izquierda)
+.grupo-nombre {
+  flex: 1;
+  color: $dark-contrasts-100;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+// 8.5 - Código del grupo (derecha)
+.grupo-codigo {
+  color: $dark-contrasts-75;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+// 8.6 - Flecha del grupo
+.grupo-arrow {
+  color: $dark-contrasts-75;
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+
+// ============================================================================
+// SECCIÓN 9: VISTA EXPANDIDA (dos paneles)
+// ============================================================================
+
+// 9.1 - Contenedor de paneles
 .contenido-expandido {
   display: flex;
   flex-direction: row;
   gap: 24px;
-  background-color: $containers-background;
-  border: 2px solid $container-outline;
-  border-top: none;
-  border-radius: 0 0 24px 24px;
-  padding: 24px;
-  box-shadow: 12px 12px 4px 0 rgba(0, 0, 0, 0.33);
-  flex: 1 0 0;
-  align-self: stretch;
+  margin-top: 8px;
 }
 
-// Panel izquierdo (buscador) - width 390px según Figma
+// 9.2 - Panel izquierdo (buscador)
 .panel-busqueda {
   width: 390px;
   flex-shrink: 0;
 }
 
-// Panel derecho (resultados/grupos) - CON CONTENEDOR
+// 9.3 - Panel derecho (resultados)
 .panel-resultados {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 8px;
-  padding: 12px 16px;
-  flex: 1 0 0;
-  align-self: stretch;
+  padding: 16px;
+  flex: 1;
   border-radius: 16px;
-  border: 1px solid $container-outline;
-  background: $containers-main;
-  overflow-y: auto;
-  min-height: 540px;  // Altura mínima para el espacio
+  border: 1px solid $dark-container-outline;
+  background: $dark-containers-main;
+  min-height: 400px;
+  max-height: 520px;
+  overflow: hidden;
 
-  .seccion-titulo {
+  .seccion-header {
     margin-top: 0;
-    margin-bottom: 8px;
-    width: 100%;
   }
 
-  .grupo-card {
-    width: 100%;
+  .grupos-lista {
+    overflow-y: auto;
+    flex: 1;
   }
 
   app-resultados-busqueda {
@@ -372,5 +397,23 @@ bmb-interactive-icon {
     height: 100%;
     flex: 1;
     overflow: hidden;
+  }
+}
+
+
+// ============================================================================
+// SECCIÓN 10: RESPONSIVE
+// ============================================================================
+@media (max-width: 768px) {
+  .contenido-expandido {
+    flex-direction: column;
+  }
+
+  .panel-busqueda {
+    width: 100%;
+  }
+
+  .panel-resultados {
+    min-height: 300px;
   }
 }

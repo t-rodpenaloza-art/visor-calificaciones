@@ -1,10 +1,54 @@
-/* Estilos globales para Seguimiento de Estudiantes */
-/* Importo las variables y mixins de Bamboo Design System */
+/* ========================================
+   ESTILOS GLOBALES - Seguimiento de Estudiantes
+   Tema Dark de Bamboo
+   ======================================== */
+
+/* Reset básico */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+}
+
+/* El fondo se maneja por el tema de Bamboo (bmb-theme)
+   pero establecemos un fallback por si acaso */
+body {
+  font-family: 'Roboto', 'Poppins', sans-serif;
   background-color: #1a1a2e;
+  color: #F6F7F9;
+}
+
+/* Scrollbar personalizado para tema oscuro */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1F222E;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #617196;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7a8bb0;
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+  outline: 2px solid #4599EC;
+  outline-offset: 2px;
+}
+
+/* Transiciones suaves globales */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }

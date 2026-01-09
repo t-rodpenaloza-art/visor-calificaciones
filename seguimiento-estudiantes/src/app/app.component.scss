@@ -1,15 +1,6 @@
+// Estilos base para el contenedor de la aplicación
 .app-container {
   min-height: 100vh;
-  background-color: #0f0f1a;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px;
-}
-
-app-tarjeta-seguimiento {
-  display: block;
-  width: 100%;
-  max-width: 1160px;
-  transition: max-width 0.3s ease;
+  padding: 24px;
+  box-sizing: border-box;
 }

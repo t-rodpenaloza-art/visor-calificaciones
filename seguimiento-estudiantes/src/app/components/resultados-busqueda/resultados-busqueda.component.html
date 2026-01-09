@@ -12,67 +12,27 @@
     <h3 class="header-titulo">Resultado de búsqueda ({{ estudiantes.length }})</h3>
   </div>
 
-  <!-- Lista de estudiantes encontrados -->
+  <!-- Lista de estudiantes encontrados - BAMBOO -->
   <div class="lista-estudiantes" *ngIf="estudiantes.length > 0">
-    <button
+    <bmb-container-button
       *ngFor="let estudiante of estudiantesPaginados"
-      type="button"
-      class="estudiante-card"
-      (click)="seleccionarEstudiante(estudiante)">
-      
-      <div class="estudiante-avatar">
-        <span class="material-icons">account_circle</span>
-      </div>
-      
-      <div class="estudiante-info">
-        <span class="estudiante-nombre">{{ estudiante.nombreCompleto }}</span>
-        <span class="estudiante-matricula">[{{ estudiante.matricula }}]</span>
-      </div>
-      
-      <span class="material-symbols-outlined estudiante-arrow">chevron_right</span>
-    </button>
+      [title]="estudiante.nombreCompleto"
+      [subtitle]="'[' + estudiante.matricula + ']'"
+      [iconLeft]="'account_circle'"
+      [iconRight]="'chevron_right'"
+      [alternative]="true"
+      (onButton)="seleccionarEstudiante(estudiante)">
+    </bmb-container-button>
   </div>
 
-  <!-- Paginación - RN-05: 10 resultados por página -->
-  <div class="paginacion" *ngIf="estudiantes.length > resultadosPorPagina">
-    <span class="paginacion-info">
-      {{ indiceInicio }}-{{ indiceFin }} de {{ estudiantes.length }}
-    </span>
-    
-    <div class="paginacion-controles">
-      <button 
-        type="button"
-        class="btn-pagina"
-        [disabled]="paginaActual === 1"
-        (click)="irPrimeraPagina()"
-        aria-label="Primera página">
-        <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
-      </button>
-      <button 
-        type="button"
-        class="btn-pagina"
-        [disabled]="paginaActual === 1"
-        (click)="paginaAnterior()"
-        aria-label="Página anterior">
-        <span class="material-symbols-outlined">chevron_left</span>
-      </button>
-      <button 
-        type="button"
-        class="btn-pagina"
-        [disabled]="paginaActual === totalPaginas"
-        (click)="paginaSiguiente()"
-        aria-label="Página siguiente">
-        <span class="material-symbols-outlined">chevron_right</span>
-      </button>
-      <button 
-        type="button"
-        class="btn-pagina"
-        [disabled]="paginaActual === totalPaginas"
-        (click)="irUltimaPagina()"
-        aria-label="Última página">
-        <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
-      </button>
-    </div>
+  <!-- Paginación - BAMBOO -->
+  <div class="paginacion-container" *ngIf="estudiantes.length > resultadosPorPagina">
+    <bmb-paginator
+      [totalItems]="estudiantes.length"
+      [itemsPerPage]="resultadosPorPagina"
+      [currentPage]="paginaActual"
+      (pageChange)="onPageChange($event)">
+    </bmb-paginator>
   </div>
 
   <!-- Mensaje cuando no hay resultados -->

@@ -1,66 +1,86 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { BmbInputComponent, BmbButtonDirective } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { CriteriosBusqueda } from '../../models/estudiante.model';
 
 @Component({
   selector: 'app-buscador-estudiantes',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    BmbInputComponent,
+    BmbButtonDirective
+  ],
   templateUrl: './buscador-estudiantes.component.html',
   styleUrl: './buscador-estudiantes.component.scss'
 })
 export class BuscadorEstudiantesComponent {
 
-  // Recibo los criterios para mantener persistencia (RN-06)
-  @Input() criterios: CriteriosBusqueda = {
-    matricula: '',
-    nombres: '',
-    apellidoPaterno: '',
-    apellidoMaterno: ''
-  };
+  // Recibo los criterios actuales para persistencia
+  @Input() set criterios(value: CriteriosBusqueda) {
+    if (value) {
+      this.busquedaForm.patchValue({
+        matricula: value.matricula,
+        nombres: value.nombres,
+        apellidoPaterno: value.apellidoPaterno,
+        apellidoMaterno: value.apellidoMaterno
+      });
+    }
+  }
 
-  // Notifico al padre cuando se ejecuta una búsqueda
+  // Emito cuando el usuario quiere buscar
   @Output() buscar = new EventEmitter<CriteriosBusqueda>();
-  
-  // Notifico cuando se presiona el botón limpiar
+
+  // Emito cuando el usuario quiere limpiar
   @Output() limpiar = new EventEmitter<void>();
 
+  // Formulario reactivo para los campos de búsqueda
+  busquedaForm = new FormGroup({
+    matricula: new FormControl(''),
+    nombres: new FormControl(''),
+    apellidoPaterno: new FormControl(''),
+    apellidoMaterno: new FormControl('')
+  });
+
   /**
-   * Ejecuto la búsqueda con los criterios actuales
-   * Solo busco si hay al menos un criterio ingresado
+   * Obtener FormControl por nombre
    */
-  ejecutarBusqueda(): void {
-    // const hayCriterios = this.criterios.matricula.trim() !== '' ||
-    //                      this.criterios.nombres.trim() !== '' ||
-    //                      this.criterios.apellidoPaterno.trim() !== '' ||
-    //                      this.criterios.apellidoMaterno.trim() !== '';
-    
-    // if (hayCriterios) {
-       this.buscar.emit({ ...this.criterios });
-    // }
+  getFormControl(name: string): FormControl {
+    return this.busquedaForm.get(name) as FormControl;
   }
 
   /**
-   * Limpio todos los campos del formulario
-   * RN-10: El botón limpiar reinicia campos y borra coincidencias
+   * Ejecuto la búsqueda emitiendo los criterios al padre
+   */
+  ejecutarBusqueda(): void {
+    const criterios: CriteriosBusqueda = {
+      matricula: this.busquedaForm.value.matricula ?? '',
+      nombres: this.busquedaForm.value.nombres ?? '',
+      apellidoPaterno: this.busquedaForm.value.apellidoPaterno ?? '',
+      apellidoMaterno: this.busquedaForm.value.apellidoMaterno ?? ''
+    };
+    this.buscar.emit(criterios);
+  }
+
+  /**
+   * Limpio el formulario y notifico al padre
    */
   limpiarFormulario(): void {
-    this.criterios = {
+    this.busquedaForm.reset({
       matricula: '',
       nombres: '',
       apellidoPaterno: '',
       apellidoMaterno: ''
-    };
+    });
     this.limpiar.emit();
   }
 
   /**
-   * Permito buscar al presionar Enter en cualquier campo
+   * Handler para cambios en los inputs
    */
-  buscarConEnter(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      this.ejecutarBusqueda();
-    }
+  handleInputChange(event: HTMLInputElement): void {
+    // Los cambios se manejan automáticamente por el FormControl
   }
 }

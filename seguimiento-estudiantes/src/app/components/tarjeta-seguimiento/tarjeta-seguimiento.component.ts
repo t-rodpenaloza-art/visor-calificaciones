@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { 
+  BmbContainerButtonComponent,
+  BmbInteractiveIconComponent,
+  BmbCardComponent,
+  BmbCardHeaderComponent,
+  BmbCardContentComponent
+} from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { BuscadorEstudiantesComponent } from '../buscador-estudiantes/buscador-estudiantes.component';
 import { ResultadosBusquedaComponent } from '../resultados-busqueda/resultados-busqueda.component';
 import { EstudiantesService } from '../../services/estudiantes.service';
@@ -10,6 +17,13 @@ import { Estudiante, GrupoMentoria, CriteriosBusqueda } from '../../models/estud
   standalone: true,
   imports: [
     CommonModule,
+    // Componentes Bamboo según documentación
+    BmbContainerButtonComponent,
+    BmbInteractiveIconComponent,
+    BmbCardComponent,
+    BmbCardHeaderComponent,
+    BmbCardContentComponent,
+    // Componentes propios
     BuscadorEstudiantesComponent,
     ResultadosBusquedaComponent
   ],
@@ -30,7 +44,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
   // Indico si ya se realizó una búsqueda
   busquedaRealizada = false;
 
-  // Guardo los criterios para persistencia (RN-06)
+  // Guardo los criterios para persistencia
   criteriosBusqueda: CriteriosBusqueda = {
     matricula: '',
     nombres: '',
@@ -94,7 +108,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
    */
   abrirGrupo(grupo: GrupoMentoria): void {
     console.log('Grupo seleccionado:', grupo);
-    alert(`Navegando al tablero del grupo: ${grupo.nombre}`);
+    // Aquí navegarías al tablero del grupo
   }
 
   /**
@@ -102,6 +116,13 @@ export class TarjetaSeguimientoComponent implements OnInit {
    */
   abrirEstudiante(estudiante: Estudiante): void {
     console.log('Estudiante seleccionado:', estudiante);
-    alert(`Navegando al tablero de: ${estudiante.nombreCompleto}`);
+    // Aquí navegarías al tablero del estudiante
+  }
+
+  /**
+   * Handler para acciones de iconos interactivos
+   */
+  onIconClick(action: string): void {
+    console.log('Acción:', action);
   }
 }

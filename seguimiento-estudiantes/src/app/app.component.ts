@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { BmbThemeComponent } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { TarjetaSeguimientoComponent } from './components/tarjeta-seguimiento/tarjeta-seguimiento.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TarjetaSeguimientoComponent],
+  imports: [
+    BmbThemeComponent,
+    TarjetaSeguimientoComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

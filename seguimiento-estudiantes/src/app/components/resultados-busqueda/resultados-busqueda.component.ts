@@ -1,11 +1,16 @@
 import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BmbContainerButtonComponent, BmbPaginatorComponent } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { Estudiante } from '../../models/estudiante.model';
 
 @Component({
   selector: 'app-resultados-busqueda',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    BmbContainerButtonComponent,
+    BmbPaginatorComponent
+  ],
   templateUrl: './resultados-busqueda.component.html',
   styleUrl: './resultados-busqueda.component.scss'
 })
@@ -59,35 +64,10 @@ export class ResultadosBusquedaComponent implements OnChanges {
   }
 
   /**
-   * Navego a la página anterior si es posible
+   * Manejo cambio de página desde el paginador de Bamboo
    */
-  paginaAnterior(): void {
-    if (this.paginaActual > 1) {
-      this.paginaActual--;
-    }
-  }
-
-  /**
-   * Navego a la siguiente página si hay más resultados
-   */
-  paginaSiguiente(): void {
-    if (this.paginaActual < this.totalPaginas) {
-      this.paginaActual++;
-    }
-  }
-
-  /**
-   * Voy directamente a la primera página
-   */
-  irPrimeraPagina(): void {
-    this.paginaActual = 1;
-  }
-
-  /**
-   * Voy directamente a la última página
-   */
-  irUltimaPagina(): void {
-    this.paginaActual = this.totalPaginas;
+  onPageChange(page: number): void {
+    this.paginaActual = page;
   }
 
   /**
