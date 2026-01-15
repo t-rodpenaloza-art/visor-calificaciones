@@ -1,0 +1,28 @@
+<!-- Título de sección con línea divisora -->
+<div class="m-2">
+    <div class="seccion-header">
+        <h3 class="seccion-titulo">
+            {{ title }}
+        </h3>
+    </div>
+
+    <!-- Lista de grupos usando Generic Card (bmb-card) -->
+    <div class="grupos-lista">
+        <bmb-card 
+        *ngFor="let grupo of gruposMentoria"
+        [borderRadius]="'s'" 
+        [margin]="'none'" 
+        [type]="'normal'" 
+        [boxShadowStyle]="'none'"
+        class="grupo-card"
+        (click)="abrirGrupo(grupo)">
+        <bmb-card-content [padding]="'none'">
+            <button type="button" class="grupo-content">
+            <span class="grupo-nombre">{{ grupo.nombre }}</span>
+            <span class="grupo-codigo">{{ grupo.clave }}</span>
+            <span class="material-symbols-outlined grupo-arrow">chevron_right</span>
+            </button>
+        </bmb-card-content>
+        </bmb-card>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+$dark-containers-background: #1F222E;   // Gris (Charade) 900 - Fondo principal
+$dark-containers-main: #313649;          // Gris (Charade) 800 - Cards y contenedores
+$dark-containers-main-hover: #3a4055;    // Hover state
+$dark-container-outline: #373F55;        // Gris (Charade) 700 - Bordes
+$dark-contrasts-100: #D3D7E4;            // Texto principal
+$dark-contrasts-75: #D3D7E4;             // Texto secundario
+$dark-contrasts-50: #617196;             // Texto terciario
+$dark-accent-blue: #2766CB;
+
+// ============================================================================
+// SECCIÓN 8: LISTA DE GRUPOS (usando BMB-CARD como Generic Card)
+// ============================================================================
+
+.m-2 {
+    margin: 1rem 0;
+}
+
+// 8.1 - Contenedor de la lista
+.grupos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+// 8.2 - Card individual de cada grupo
+.grupo-card {
+  cursor: pointer;
+
+  // Override para bmb-card de grupo
+  ::ng-deep .bmb_card {
+    background-color: $dark-containers-main !important;
+    border: 1px solid $dark-container-outline !important;
+    border-radius: 12px !important;
+    margin: 0 !important;
+    overflow: hidden;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $dark-containers-main-hover !important;
+    }
+    
+    &::before,
+    &::after {
+      display: none !important;
+    }
+  }
+
+  ::ng-deep .bmb_card-content {
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+}
+
+// 8.3 - Contenido interno del grupo (button para accesibilidad)
+.grupo-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  gap: 16px;
+
+  &:focus {
+    outline: 2px solid #4599EC;
+    outline-offset: -2px;
+    border-radius: 12px;
+  }
+}
+
+// 8.4 - Nombre del grupo (izquierda)
+.grupo-nombre {
+  flex: 1;
+  color: $dark-contrasts-100;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+// 8.5 - Código del grupo (derecha)
+.grupo-codigo {
+  color: $dark-contrasts-75;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+// 8.6 - Flecha del grupo
+.grupo-arrow {
+  color: $dark-contrasts-75;
+  font-size: 20px;
+  margin-left: 8px;
+}

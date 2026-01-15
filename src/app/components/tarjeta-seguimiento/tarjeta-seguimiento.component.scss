@@ -216,7 +216,6 @@ $dark-accent-blue: #2766CB;              // Azul institucional
   // 6.1 - Contenedor principal del botón
   .bmb_container-button {
     background-color: $dark-containers-main !important;
-    border: 1px solid $dark-container-outline !important;
     border-radius: 12px !important;
     
     &:hover {

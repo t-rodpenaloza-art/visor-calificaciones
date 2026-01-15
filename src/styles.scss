@@ -2,6 +2,7 @@
    ESTILOS GLOBALES - Seguimiento de Estudiantes
    Tema Dark de Bamboo
    ======================================== */
+// @use 'material-symbols/rounded';
 
 /* Reset básico */
 *, *::before, *::after {
@@ -18,8 +19,8 @@ html, body {
    pero establecemos un fallback por si acaso */
 body {
   font-family: 'Roboto', 'Poppins', sans-serif;
-  background-color: #1a1a2e;
-  color: #F6F7F9;
+  // background-color: #1a1a2e;
+  // color: #F6F7F9;
 }
 
 /* Scrollbar personalizado para tema oscuro */

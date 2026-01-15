@@ -11,6 +11,8 @@ import { BuscadorEstudiantesComponent } from '../buscador-estudiantes/buscador-e
 import { ResultadosBusquedaComponent } from '../resultados-busqueda/resultados-busqueda.component';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { Estudiante, GrupoMentoria, CriteriosBusqueda } from '../../models/estudiante.model';
+import { Router } from '@angular/router';
+import { ListGroupsComponent } from "../list-groups/list-groups.component";
 
 @Component({
   selector: 'app-tarjeta-seguimiento',
@@ -25,8 +27,9 @@ import { Estudiante, GrupoMentoria, CriteriosBusqueda } from '../../models/estud
     BmbCardContentComponent,
     // Componentes propios
     BuscadorEstudiantesComponent,
-    ResultadosBusquedaComponent
-  ],
+    ResultadosBusquedaComponent,
+    ListGroupsComponent
+],
   templateUrl: './tarjeta-seguimiento.component.html',
   styleUrl: './tarjeta-seguimiento.component.scss'
 })
@@ -52,7 +55,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
     apellidoMaterno: ''
   };
 
-  constructor(private readonly estudiantesService: EstudiantesService) {}
+  constructor(private readonly estudiantesService: EstudiantesService, private readonly router: Router) {}
 
   ngOnInit(): void {
     this.cargarGruposMentoria();
@@ -69,15 +72,14 @@ export class TarjetaSeguimientoComponent implements OnInit {
    * Expando la vista para mostrar el buscador completo
    */
   expandirVista(): void {
-    this.vistaExpandida = true;
+    this.router.navigate(['/seguimiento-busqueda']);
   }
 
   /**
    * Colapso la vista y regreso al estado inicial
    */
   colapsarVista(): void {
-    this.vistaExpandida = false;
-    this.limpiarBusqueda();
+    this.router.navigate(['/seguimiento']);
   }
 
   /**

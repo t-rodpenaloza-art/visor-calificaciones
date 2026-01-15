@@ -27,29 +27,29 @@ $dark-contrasts-50: #617196;
 ::ng-deep bmb-input {
   .bmb_field {
     .bmb_field-label {
-      color: $dark-contrasts-100 !important;
+      // color: $dark-contrasts-100 !important;
       font-size: 12px;
       font-weight: 500;
     }
 
-    input,
-    textarea {
-      background-color: $dark-containers-main !important;
-      border-color: $dark-container-outline !important;
-      color: $dark-contrasts-100 !important;
+    // input,
+    // textarea {
+    //   background-color: $dark-containers-main !important;
+    //   border-color: $dark-container-outline !important;
+    //   color: $dark-contrasts-100 !important;
       
-      &::placeholder {
-        color: $dark-contrasts-50 !important;
-      }
+    //   &::placeholder {
+    //     color: $dark-contrasts-50 !important;
+    //   }
 
-      &:focus {
-        border-color: #4599EC !important;
-      }
-    }
+    //   &:focus {
+    //     border-color: #4599EC !important;
+    //   }
+    // }
 
-    .bmb_field-helper {
-      color: $dark-contrasts-75 !important;
-    }
+    // .bmb_field-helper {
+    //   color: $dark-contrasts-75 !important;
+    // }
   }
 }
 
@@ -64,27 +64,27 @@ $dark-contrasts-50: #617196;
   }
 }
 
-// Override para botones en tema dark
-::ng-deep {
-  // Botón secundario (Limpiar)
-  button[bmbButton]:not([appearance]) {
-    background-color: transparent !important;
-    border: 1px solid $dark-container-outline !important;
-    color: $dark-contrasts-100 !important;
+// // Override para botones en tema dark
+// ::ng-deep {
+//   // Botón secundario (Limpiar)
+//   button[bmbButton]:not([appearance]) {
+//     background-color: transparent !important;
+//     border: 1px solid $dark-container-outline !important;
+//     color: $dark-contrasts-100 !important;
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
-    }
-  }
+//     &:hover {
+//       background-color: rgba(255, 255, 255, 0.1) !important;
+//     }
+//   }
 
-  // Botón primario (Buscar)
-  button[bmbButton][appearance="primary"] {
-    background-color: #2766CB !important;
-    border-color: #2766CB !important;
-    color: #FFFFFF !important;
+  // // Botón primario (Buscar)
+  // button[bmbButton][appearance="primary"] {
+  //   background-color: #2766CB !important;
+  //   border-color: #2766CB !important;
+  //   color: #FFFFFF !important;
 
-    &:hover {
-      background-color: #1e51a2 !important;
-    }
-  }
-}
+  //   &:hover {
+  //     background-color: #1e51a2 !important;
+  //   }
+  // }
+// }

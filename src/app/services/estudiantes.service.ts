@@ -199,7 +199,7 @@ export class EstudiantesService {
   return texto
     .toLowerCase()
     .normalize('NFD')
-    .replaceAll(/[\u0300-\u036f]/g, '');
+    // .replaceAll(/[\u0300-\u036f]/g, '');
   }
 
   /**
