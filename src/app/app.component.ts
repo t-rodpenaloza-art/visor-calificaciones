@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BmbThemeComponent } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { TarjetaSeguimientoComponent } from './components/tarjeta-seguimiento/tarjeta-seguimiento.component';
+import { StateService } from './services/state.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,12 @@ import { TarjetaSeguimientoComponent } from './components/tarjeta-seguimiento/ta
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'seguimiento-estudiantes';
+
+  private readonly stateService = inject(StateService);
+
+  ngOnInit(): void {
+    // this.stateService.loadSubAccounts();
+  }
 }

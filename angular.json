@@ -46,9 +46,9 @@
 								"output": "/assets/svg/"
 							},
 							{
-								"glob": "**/*",
-								"input": "./node_modules/@material-symbols/svg-400/",
-								"output": "/node_modules/@material-symbols/svg-400/"
+								"glob": "**/*.svg",
+								"input": "node_modules/@material-symbols/svg-400/rounded/",
+								"output": "/assets/icons/material-rounded/"
 							}
 						],
 						"styles": [

@@ -28,18 +28,13 @@ $dark-accent-blue: #2766CB;
 
   // Override para bmb-card de grupo
   ::ng-deep .bmb_card {
-    background-color: $dark-containers-main !important;
-    border: 1px solid $dark-container-outline !important;
-    border-radius: 12px !important;
     margin: 0 !important;
     overflow: hidden;
     box-shadow: none !important;
     outline: none !important;
     transition: background-color 0.2s ease;
 
-    &:hover {
-      background-color: $dark-containers-main-hover !important;
-    }
+
     
     &::before,
     &::after {
@@ -77,15 +72,14 @@ $dark-accent-blue: #2766CB;
 // 8.4 - Nombre del grupo (izquierda)
 .grupo-nombre {
   flex: 1;
-  color: $dark-contrasts-100;
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
+  color: unset;
 }
 
 // 8.5 - Código del grupo (derecha)
 .grupo-codigo {
-  color: $dark-contrasts-75;
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -93,7 +87,6 @@ $dark-accent-blue: #2766CB;
 
 // 8.6 - Flecha del grupo
 .grupo-arrow {
-  color: $dark-contrasts-75;
   font-size: 20px;
   margin-left: 8px;
 }
