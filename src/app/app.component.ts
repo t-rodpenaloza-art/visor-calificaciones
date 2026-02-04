@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   private readonly stateService = inject(StateService);
 
   ngOnInit(): void {
-    // this.stateService.loadSubAccounts();
+    this.stateService.loadSubAccounts();
+    this.stateService.loadCourses('L01234567', { access_token: 'your_access_token_here' });
   }
 }

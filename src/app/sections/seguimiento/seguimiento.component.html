@@ -1,103 +1,105 @@
-  <div class="tarjeta-seguimiento" [class.expandida]="vistaExpandida">
-    <!-- <bmb-card [borderRadius]="'m'" [margin]="'none'" [type]="'normal'" [boxShadowStyle]="'none'">
-      
-      <bmb-card-header [padding]="'s'">
-        <div class="header-content expandida">
+<div class="main-container ">
+  <bmb-home-card cls [icon]="'person_search'" bgIconAppearance="black-primary" [title]="'Seguimiento de estudiantes'"
+    [dataLocalNav]="[]" [actionHeaders]="actionsHeader" [showRightButton]="true" [isMobile]="false"
+    [style.view-transition-name]="'seguimiento-estudiantes'" (onExpandClick)="returnToHome.emit()">
+
+
+    <div class="tarjeta-seguimiento" [class.expandida]="vistaExpandida">
+      <!-- <bmb-card [borderRadius]="'m'" [margin]="'none'" [type]="'normal'" [boxShadowStyle]="'none'">
           
-          <bmb-interactive-icon
-            [icon]="'chevron_left'"
-            [appearance]="'mitec_blue'"
-            [appearanceContrast]="'default'"
-            [layout]="'button'"
-            [title]="''"
-            [description]="''"
-            (buttonClick)="colapsarVista()">
-          </bmb-interactive-icon>
-          
-          
-          <bmb-interactive-icon
-            [icon]="'person_search'"
-            [appearance]="'mitec_blue'"
-            [appearanceContrast]="'default'"
-            [layout]="'button'"
-            [title]="''"
-            [description]="''">
-          </bmb-interactive-icon>
-          
-          
-          <div class="header-info">
-            <h2 class="header-titulo">Seguimiento de estudiantes</h2>
-            <span class="header-subtitulo">Seguimiento de estudiantes</span>
-          </div>
-          
-          
-          <div class="header-acciones">
-            <bmb-interactive-icon
-              [icon]="'sentiment_satisfied'"
-              [appearance]="'mitec_blue'"
-              [appearanceContrast]="'default'"
-              [layout]="'button'"
-              [title]="''"
-              [description]="''"
-              (buttonClick)="onIconClick('feedback')">
-            </bmb-interactive-icon>
-            
-            <bmb-interactive-icon
-              [icon]="'info'"
-              [appearance]="'mitec_blue'"
-              [appearanceContrast]="'default'"
-              [layout]="'button'"
-              [title]="''"
-              [description]="''"
-              (buttonClick)="onIconClick('info')">
-            </bmb-interactive-icon>
-            
-            <bmb-interactive-icon
-              [icon]="'zoom_in_map'"
-              [appearance]="'mitec_blue'"
-              [appearanceContrast]="'default'"
-              [layout]="'button'"
-              [title]="''"
-              [description]="''"
-              (buttonClick)="colapsarVista()">
-            </bmb-interactive-icon>
-          </div>
-        </div>
-      </bmb-card-header> -->
-      
+          <bmb-card-header [padding]="'s'">
+            <div class="header-content expandida">
+              
+              <bmb-interactive-icon
+                [icon]="'chevron_left'"
+                [appearance]="'mitec_blue'"
+                [appearanceContrast]="'default'"
+                [layout]="'button'"
+                [title]="''"
+                [description]="''"
+                (buttonClick)="colapsarVista()">
+              </bmb-interactive-icon>
+              
+              
+              <bmb-interactive-icon
+                [icon]="'person_search'"
+                [appearance]="'mitec_blue'"
+                [appearanceContrast]="'default'"
+                [layout]="'button'"
+                [title]="''"
+                [description]="''">
+              </bmb-interactive-icon>
+              
+              
+              <div class="header-info">
+                <h2 class="header-titulo">Seguimiento de estudiantes</h2>
+                <span class="header-subtitulo">Seguimiento de estudiantes</span>
+              </div>
+              
+              
+              <div class="header-acciones">
+                <bmb-interactive-icon
+                  [icon]="'sentiment_satisfied'"
+                  [appearance]="'mitec_blue'"
+                  [appearanceContrast]="'default'"
+                  [layout]="'button'"
+                  [title]="''"
+                  [description]="''"
+                  (buttonClick)="onIconClick('feedback')">
+                </bmb-interactive-icon>
+                
+                <bmb-interactive-icon
+                  [icon]="'info'"
+                  [appearance]="'mitec_blue'"
+                  [appearanceContrast]="'default'"
+                  [layout]="'button'"
+                  [title]="''"
+                  [description]="''"
+                  (buttonClick)="onIconClick('info')">
+                </bmb-interactive-icon>
+                
+                <bmb-interactive-icon
+                  [icon]="'zoom_in_map'"
+                  [appearance]="'mitec_blue'"
+                  [appearanceContrast]="'default'"
+                  [layout]="'button'"
+                  [title]="''"
+                  [description]="''"
+                  (buttonClick)="colapsarVista()">
+                </bmb-interactive-icon>
+              </div>
+            </div>
+          </bmb-card-header> -->
+
       <bmb-card-content [padding]="'s'">
         <!-- Contenido expandido (dos paneles) -->
         <div class="contenido-expandido">
-          
+
           <!-- Panel izquierdo: Formulario de búsqueda -->
           <div class="panel-busqueda">
-            <app-buscador-estudiantes
-              [criterios]="criteriosBusqueda"
-              (buscar)="realizarBusqueda($event)"
+            <app-buscador-estudiantes [criterios]="criteriosBusqueda" (buscar)="realizarBusqueda($event)"
               (limpiar)="limpiarBusqueda()">
             </app-buscador-estudiantes>
           </div>
 
           <!-- Panel derecho: Resultados o Grupos -->
           <div class="panel-resultados">
-            
+
             <!-- Mostrar resultados si hay búsqueda realizada -->
             <ng-container *ngIf="busquedaRealizada">
-              <app-resultados-busqueda
-                [estudiantes]="estudiantesEncontrados"
-                [busquedaRealizada]="busquedaRealizada"
-                (estudianteSeleccionado)="abrirEstudiante($event)"
-                (volver)="limpiarBusqueda()">
+              <app-resultados-busqueda [estudiantes]="estudiantesEncontrados" [busquedaRealizada]="busquedaRealizada"
+                (estudianteSeleccionado)="abrirEstudiante($event)" (volver)="limpiarBusqueda()">
               </app-resultados-busqueda>
             </ng-container>
 
-            <app-list-groups 
-              *ngIf="!busquedaRealizada"
-              [gruposMentoria]="gruposMentoria" 
+            <app-list-groups *ngIf="!busquedaRealizada" [gruposMentoria]="gruposMentoria"
               [title]="'Mis grupos de mentoría'">
             </app-list-groups>
           </div>
         </div>
       </bmb-card-content>
-    <!-- </bmb-card> -->
-  </div>
+      <!-- </bmb-card> -->
+    </div>
+
+  </bmb-home-card>
+</div>

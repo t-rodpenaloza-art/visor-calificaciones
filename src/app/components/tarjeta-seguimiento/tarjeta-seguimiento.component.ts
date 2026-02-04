@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { 
   BmbContainerButtonComponent,
@@ -13,6 +13,11 @@ import { EstudiantesService } from '../../services/estudiantes.service';
 import { Estudiante, GrupoMentoria, CriteriosBusqueda } from '../../models/estudiante.model';
 import { Router } from '@angular/router';
 import { ListGroupsComponent } from "../list-groups/list-groups.component";
+import { StateService } from '../../services/state.service';
+import { catchError, filter, finalize, from, mergeMap, of } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { ApiService } from '../../services/api.service';
+import { Cursos } from '../../models/canvas.model';
 
 @Component({
   selector: 'app-tarjeta-seguimiento',
@@ -35,11 +40,34 @@ import { ListGroupsComponent } from "../list-groups/list-groups.component";
 })
 export class TarjetaSeguimientoComponent implements OnInit {
 
+  private readonly stateService = inject(StateService);
+  private readonly api = inject(ApiService);
+
+  // Acceso a subcuentas desde el StateService
+  readonly subAccounts = computed(() => {
+    const data = this.stateService.subaccounts();
+    if (!data) return [];
+    return data;
+  });
+
+  // Acceso a courses desde el StateService
+  readonly courses = computed(() => {
+    const data = this.stateService.courses();
+    if (!data) return [];
+    // Si es string, parsear; si ya es array, usar directamente
+    return data.filter((c:any) => (c?.enrollments && (c?.enrollments[0]?.enrollment_state == "active" || c?.enrollments[0]?.enrollment_state == "completed")));
+  });
+
+  public listCourses: Cursos[] = [];
+
   // Controlo si la vista está expandida o colapsada
   vistaExpandida = false;
 
   // Lista de grupos de mentoría del mentor
-  gruposMentoria: GrupoMentoria[] = [];
+  gruposMentoria: any[] = [];
+
+  // Lista de grupos de mentoría del mentor
+  subaccounts: any[] = [];
 
   // Resultados de la búsqueda actual
   estudiantesEncontrados: Estudiante[] = [];
@@ -64,8 +92,34 @@ export class TarjetaSeguimientoComponent implements OnInit {
   /**
    * Cargo los grupos de mentoría del mentor al iniciar
    */
-  private cargarGruposMentoria(): void {
-    this.gruposMentoria = this.estudiantesService.obtenerGruposMentoria();
+  private async cargarGruposMentoria(): Promise<void> {
+
+    return new Promise((res:any) => { 
+
+      let periodo = { term: '202611' };
+      let cursos = this.courses();
+      let tempMaterias: any[] = [];
+
+      from(this.courses()).pipe(
+            mergeMap((cruso: any) => {
+              let urlCursos =`${environment.apiManager.baseurl}/tec/cursos-unificados/${cruso.sis_course_id}?ejercicio-academico=${periodo.term}`
+              return this.api.genericRequestGet(urlCursos).pipe(
+                filter((resp: any) => resp.data[0].attributes.indicadorMateriaTutorias),
+                catchError(err => of([]))
+              )
+            }),
+            finalize(() => {
+              this.listCourses = tempMaterias;
+              res();
+            })
+          ).subscribe((resp: any) => {
+            if (resp?.data) {
+              let tempTutoria = cursos.find(curso => curso.sis_course_id?.split('.')[curso.sis_course_id?.split('.').length - 1] == resp.data[0].attributes.numeroReferenciaCurso)
+              tempMaterias.push(tempTutoria)
+            }
+          })
+
+    });
   }
 
   /**

@@ -2,6 +2,7 @@ import { createCustomElement } from '@angular/elements';
 import { createApplication } from '@angular/platform-browser';
 import { NgZone } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { routes } from '../app.routes';
 import { AppComponent } from '../app.component';
 import { TarjetaSeguimientoComponent } from '../components/tarjeta-seguimiento/tarjeta-seguimiento.component';
@@ -12,6 +13,7 @@ import { SeguimientoComponent } from '../sections/seguimiento/seguimiento.compon
     const appRef = await createApplication({
         providers: [
             provideRouter(routes),
+            provideHttpClient(withFetch()),
             /* your global providers here */
             (globalThis as any)?.ngZone ? { provide: NgZone, useValue: (globalThis as any).ngZone } : [],
         ],

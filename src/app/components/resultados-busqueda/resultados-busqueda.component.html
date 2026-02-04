@@ -1,36 +1,24 @@
 <div class="resultados-container">
-  
+
   <!-- Encabezado con botón regresar y contador de resultados -->
   <div class="resultados-header" *ngIf="estudiantes.length > 0">
-    <button 
-      type="button" 
-      class="btn-regresar-resultados"
-      (click)="volverAGrupos()"
-      aria-label="Volver a grupos">
-      <span class="material-symbols-outlined">arrow_back</span>
+    <button type="button" class="btn-regresar-resultados" (click)="volverAGrupos()" aria-label="Volver a grupos">
+      <span class="material-icons grupo-arrow">chevron_left</span>
     </button>
     <h3 class="header-titulo">Resultado de búsqueda ({{ estudiantes.length }})</h3>
   </div>
 
   <!-- Lista de estudiantes encontrados - BAMBOO -->
   <div class="lista-estudiantes" *ngIf="estudiantes.length > 0">
-    <bmb-container-button
-      *ngFor="let estudiante of estudiantesPaginados"
-      [title]="estudiante.nombreCompleto"
-      [subtitle]="'[' + estudiante.matricula + ']'"
-      [iconLeft]="'account_circle'"
-      [iconRight]="'chevron_right'"
-      [alternative]="true"
-      (onButton)="seleccionarEstudiante(estudiante)">
+    <bmb-container-button *ngFor="let estudiante of estudiantesPaginados" [title]="estudiante.nombreCompleto"
+      [subtitle]="'[' + estudiante.matricula + ']'" [iconLeft]="'account_circle'" [iconRight]="'chevron_right'"
+      [alternative]="true" (onButton)="seleccionarEstudiante(estudiante)">
     </bmb-container-button>
   </div>
 
   <!-- Paginación - BAMBOO -->
   <div class="paginacion-container" *ngIf="estudiantes.length > resultadosPorPagina">
-    <bmb-paginator
-      [totalItems]="estudiantes.length"
-      [itemsPerPage]="resultadosPorPagina"
-      [currentPage]="paginaActual"
+    <bmb-paginator [totalItems]="estudiantes.length" [itemsPerPage]="resultadosPorPagina" [currentPage]="paginaActual"
       (pageChange)="onPageChange($event)">
     </bmb-paginator>
   </div>
