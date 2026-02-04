@@ -86,15 +86,26 @@ export class StateService {
       this.evaluationSubscription.unsubscribe(); // ❌ Cancela la petición anterior si hay una en proceso
     }
 
-    let object: BodySubcuentas = {
-      path: `/api/v1/users/sis_login_id:${nomina}/courses?enrollment_state=active&enrollment_state=complete&include[]=total_scores&state[]=active&include[]=term&include[]=concluded&include[]=teachers&per_page=100`,
+    // Descomenbtar para usar token dinámico ++++>
+    // let object: BodySubcuentas = {
+    //   path: `/api/v1/users/sis_login_id:${nomina}/courses?enrollment_state=active&enrollment_state=complete&include[]=total_scores&state[]=active&include[]=term&include[]=concluded&include[]=teachers&per_page=100`,
+    //   method: "GET",
+    //   token: token.access_token
+    // }
+
+    // Código temporal con token fijo ++++>
+    let object = {
       method: "GET",
-      token: token.access_token
+      params: {
+        matricula: nomina,
+        periodo: "202513",
+        audiencia: "Colaborador" 
+      }
     }
 
     // Lógica para cargar cursos
     this.evaluationSubscription = this.apiService
-      .genericRequestPost(object, `${environment.cursos.canvas_azure}/api/Generic`)
+      .genericRequestCourses(object, `${environment.cursos.canvas_azure}/api/GetCourses`)
       .pipe(
         finalize(() => {
           console.log('Finalizando petición');

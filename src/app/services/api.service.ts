@@ -16,6 +16,12 @@ export class ApiService {
     );
   }
 
+  genericRequestCourses(body: any, url:string) {
+    return this.http.post(url, body).pipe(
+      map(response => response as any)
+    );
+  }
+
   genericRequestGet(url:string) {
 
     let header = {
