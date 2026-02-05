@@ -6,7 +6,7 @@ import { ResultadosBusquedaComponent } from "../../components/resultados-busqued
 import { CriteriosBusqueda, Estudiante, GrupoMentoria } from '../../models/estudiante.model';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { ListGroupsComponent } from "../../components/list-groups/list-groups.component";
-import { BehaviorSubject, concatMap } from 'rxjs';
+import { BehaviorSubject, concatMap, finalize, from, map, mergeMap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { StudentsByCourse } from '../../models/studentsbyCourses';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -18,6 +18,7 @@ import { Calificacion, ICalificacion } from '../../models/calificacion';
 import { Falta } from '../../models/canvas.model';
 import { HtmlcanvasService } from '../../services/htmlcanvas.service';
 import { Curso } from '../../models/curso';
+import moment from 'moment';
 
 @Component({
   selector: 'app-seguimiento',
@@ -96,6 +97,9 @@ export class SeguimientoComponent {
   ) {
     
     this.userProperties = JSON.parse(sessionStorage.getItem('userInfo') ?? '{}');
+
+    this.getSubAccounts();
+
     if (this._router.getCurrentNavigation()?.extras.state) {
 
       this.routeState = this._router.getCurrentNavigation()?.extras.state;
@@ -117,6 +121,68 @@ export class SeguimientoComponent {
         }
       }
     // })
+  }
+
+  async getSubAccounts(): Promise<void> {
+
+    let prepas = ['PREP', 'PREP-L', 'PREPA'];
+    let subCuentas: any[] = [];
+
+    if (prepas.some((e:any) => localStorage.getItem(`subcuentas${e}`) == null) || prepas.some((e:any) => !moment(JSON.parse(localStorage.getItem(`subcuentas${e}`) ?? '[]').date).isSame(moment(), "day"))) {
+      
+      this.banderaSubcuentas = true;
+
+      from(prepas).pipe(
+        mergeMap((id: any) =>
+
+          this.api.genericRequestPost(
+            {
+              path: `/api/v1/accounts/sis_account_id:${id}/sub_accounts?recursive=true&per_page=100`,
+              method: 'GET',
+              audiencia: this.userProperties.employeeType
+            },
+            `${environment.cursos.canvas_azure}/api/GenericFather`
+          ).pipe(map((result: any) => {
+            if (result.indexOf('Error') !== -1) {
+              return;
+            }
+
+            const allSubs = result;
+            const subs: any[] = [];
+            allSubs.forEach((sub: any) => {
+              subs.push(sub.id);
+            });
+
+            localStorage.setItem(`subcuentas${id}`, JSON.stringify({
+              cuenta: id,
+              ids: subs,
+              date: moment()
+            }))
+
+            return subs;
+
+          }))
+        ),
+        finalize(() => {
+          // comentar
+          this.subaccountsPrepa = subCuentas;
+          //this.subaccountsPrepa = subCuentas;
+          this.subaccountsPrepa.push(5);
+          this.subaccountsPrepa.push(12);
+          this.subaccountsPrepa.push(310);
+          this.subaccountsPrepa$.next(subCuentas)
+          // console.log("finalizo las 2 peticiones");
+        })
+      ).subscribe((resp: any) => { subCuentas.push(...resp); })
+    } else {
+      prepas.forEach((e:any) => {
+        this.subaccountsPrepa.push(...JSON.parse(localStorage.getItem(`subcuentas${e}`)  ?? '[]').ids);
+      })
+      this.subaccountsPrepa.push(5);
+      this.subaccountsPrepa.push(12);
+      this.subaccountsPrepa$.next(this.subaccountsPrepa)
+    }
+
   }
 
   private GetStudentsByGroup(): void {
