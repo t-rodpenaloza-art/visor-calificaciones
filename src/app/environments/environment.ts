@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
 
     cursos: {
         canvas: 'https://tecdemonterrey.test.instructure.com',

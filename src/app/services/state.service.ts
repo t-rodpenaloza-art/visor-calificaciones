@@ -24,8 +24,12 @@ export class StateService {
   get courses() {
     return this._courses.asReadonly();
   }
+
+  userProperties: any = {};
   
-  constructor() { }
+  constructor() {
+    this.userProperties = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
+  }
 
   loadSubAccounts(): void {
     if (this.evaluationSubscription) {
@@ -126,5 +130,36 @@ export class StateService {
           console.log('Completado');
         }
       });
+  }
+
+  loadTermsActive(): void {
+    let dateTerm: any = sessionStorage.getItem('term');
+    if (dateTerm && moment(JSON.parse(dateTerm).date).isSame(moment(), "day")) {
+      return;
+    }
+
+    this.apiService.genericRequestPost({
+        path: `/api/v1/accounts/1/terms?per_page=50`,
+        method: 'GET',
+        audiencia: "Colaborador"
+      },
+      `${environment.cursos.canvas_azure}/api/GenericFather`
+    ).subscribe(resp => {
+      resp?.enrollment_terms?.find((term: any) => {
+        let start_at = new Date(term?.start_at).getTime();
+        let end_at = new Date(term?.end_at).getTime();
+        if (term.name.includes('Semestral') && new Date().getTime() >= start_at && new Date().getTime() <= end_at) {
+          // term.sis_term_id
+          let cacheTerm = {
+            date: moment(),
+            term: term.sis_term_id,
+            id: term.id
+          }
+          sessionStorage.setItem('term', JSON.stringify(cacheTerm))
+          return true;
+        }
+        return false;
+      })
+    })
   }
 }

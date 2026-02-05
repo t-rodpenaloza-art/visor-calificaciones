@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input, OnChanges, OnInit } from '@angular/core';
 import { BmbCardComponent, BmbCardContentComponent } from "@ti-tecnologico-de-monterrey-oficial/ds-ng";
 import { GrupoMentoria } from '../../models/estudiante.model';
 import { CommonModule } from '@angular/common';
@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 })
 export class ListGroupsComponent {
 
-  @Input() gruposMentoria: any[] = [];
-  @Input() title: string = '';
+  gruposMentoria = input<any[]>([]);
+  title = input<string>('');
 
   constructor(private _router: Router) { }
 
@@ -29,7 +29,7 @@ export class ListGroupsComponent {
     searchGrades.course.id = grupo.id;
     searchGrades.course.course_code = grupo.course_code;
     searchGrades.course.name = grupo.name;
-    searchGrades.courses = this.gruposMentoria;
+    searchGrades.courses = this.gruposMentoria();
 
     this._router.navigate(['/seccion-buscador'], { state: { data: searchGrades } });
 

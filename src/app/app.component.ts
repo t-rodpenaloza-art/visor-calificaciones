@@ -22,6 +22,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.stateService.loadSubAccounts();
-    this.stateService.loadCourses('A01425640', { access_token: 'your_access_token_here' });
+    this.stateService.loadTermsActive();
   }
 }

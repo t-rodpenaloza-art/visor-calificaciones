@@ -198,5 +198,7 @@ export class HtmlcanvasService {
     if (curso.limiteFaltasMock < curso.faltas.faltasAlumno) {
       return '-'
     }
+
+    return '-';
   }
 }

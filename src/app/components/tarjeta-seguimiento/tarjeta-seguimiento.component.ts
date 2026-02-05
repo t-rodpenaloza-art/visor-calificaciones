@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { 
   BmbContainerButtonComponent,
@@ -46,8 +46,8 @@ export class TarjetaSeguimientoComponent implements OnInit {
   private readonly api = inject(ApiService);
 
   stateAccordion = false;
-  public listCourses: Cursos[] = [];
-  loadingGrade: boolean = false;
+  public listCourses: WritableSignal<Cursos[]> = signal([]);
+  loadingGrade: boolean = false; 
 
   private serviceTutoresSubscription: Subscription | undefined;
 
@@ -83,40 +83,58 @@ export class TarjetaSeguimientoComponent implements OnInit {
 
   async ObtenerCursos():Promise<void> {
     return new Promise((res:any) => {
-
+      
       this.loadingGrade = true
       let tempMaterias:any = [];
-      let nomina: string = this.usuario.cn;
-      let periodo = JSON.parse(sessionStorage.getItem('term') ?? '{}') ?? this.usuario.ejercicioAcademicoId;
+      let nomina: string = "L03121627"; // Aquí deberías obtener la nómina del usuario actual, posiblemente desde el StateService o sessionStorage
+      let periodo = JSON.parse(sessionStorage.getItem('term') ?? '{}').term;
       const token = JSON.parse(sessionStorage.getItem('canvas_token') ?? '{}');
-      this.api.genericRequestPost({
-          path: `/api/v1/users/sis_login_id:${nomina}/courses?enrollment_state=active&enrollment_state=complete&include[]=total_scores&state[]=active&include[]=term&include[]=concluded&include[]=teachers&per_page=100`,
+      
+      // Token Oauth
+      // this.api.genericRequestPost({
+      //     path: `/api/v1/users/sis_login_id:${nomina}/courses?enrollment_state=active&enrollment_state=complete&include[]=total_scores&state[]=active&include[]=term&include[]=concluded&include[]=teachers&per_page=100`,
+      //     method: "GET",
+      //     token: token.access_token
+      //   },
+      //   `${environment.cursos.canvas_azure}/api/Generic`
+      // ).subscribe((cursos: Cursos[]) => {
+
+      //Token Admin
+      this.api.genericRequestCourses(
+        {
           method: "GET",
-          token: token.access_token
+          params: {
+            matricula: nomina,
+            periodo: periodo,
+            audiencia: "Colaborador" 
+          }
         },
-        `${environment.cursos.canvas_azure}/api/Generic`
+        `${environment.cursos.canvas_azure}/api/GetCourses`
       ).subscribe((cursos: Cursos[]) => {
 
-        cursos = cursos.filter((c:any) => (c?.enrollments && (c?.enrollments[0]?.enrollment_state == "active" || c?.enrollments[0]?.enrollment_state == "completed")) && c.term.id == periodo.id);
-
+        cursos = cursos.filter((c:any) => (c?.enrollments && (c?.enrollments[0]?.enrollment_state == "active" || c?.enrollments[0]?.enrollment_state == "completed")));
+        console.log('Cursos obtenidos para tutorías:', cursos);
         from(cursos).pipe(
           mergeMap((cruso: any) => {
-            let urlCursos =`${environment.apiManager.baseurl}/tec/cursos-unificados/${cruso.sis_course_id}?ejercicio-academico=${periodo.term}`
-            return this.api.genericRequestGet(urlCursos).pipe(
-              filter((resp: any) => resp.data[0].attributes.indicadorMateriaTutorias),
+            let urlCursos =`${environment.apiManager.baseurl}/tec/cursos-unificados/${cruso.sis_course_id}?ejercicio-academico=${periodo}`
+            return this.api.genericRequestGetAPI(urlCursos).pipe(
+              filter((resp: any) => !resp.data[0].attributes.indicadorMateriaTutorias),
               //filter((resp: any) => resp.data[0].attributes.numeroReferenciaCurso == 6890),
               catchError(err => of([]))
             )
           }),
           finalize(() => {
             this.loadingGrade = false;
-            this.listCourses = tempMaterias;
+            console.log('Materias de tutoría cargadas:', tempMaterias);
+            this.listCourses.set([...tempMaterias]);
             res();
           })
         ).subscribe((resp: any) => {
           if (resp?.data) {
             let tempTutoria = cursos.find(curso => curso.sis_course_id?.split('.')[curso.sis_course_id?.split('.').length - 1] == resp.data[0].attributes.numeroReferenciaCurso)
-            tempMaterias.push(tempTutoria)
+            if (tempTutoria) {
+              tempMaterias.push(tempTutoria);
+            }
           }
         })
 
@@ -148,7 +166,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
       searchGrades.course.id = course.id;
       searchGrades.course.course_code = course.course_code;
       searchGrades.course.name = course.name;
-      searchGrades.courses = this.listCourses;
+      searchGrades.courses = this.listCourses();
       this._router.navigateByUrl('/TableroCalificaciones', { state: { data: searchGrades } })
 
     }
@@ -172,8 +190,8 @@ export class TarjetaSeguimientoComponent implements OnInit {
 
   // public listCourses: Cursos[] = [];
 
-  // // Controlo si la vista está expandida o colapsada
-  // vistaExpandida = false;
+  // Controlo si la vista está expandida o colapsada
+  vistaExpandida = false;
 
   // // Lista de grupos de mentoría del mentor
   // gruposMentoria: any[] = [];
@@ -234,19 +252,19 @@ export class TarjetaSeguimientoComponent implements OnInit {
   //   });
   // }
 
-  // /**
-  //  * Expando la vista para mostrar el buscador completo
-  //  */
-  // expandirVista(): void {
-  //   this.router.navigate(['/seguimiento-busqueda']);
-  // }
+  /**
+   * Expando la vista para mostrar el buscador completo
+   */
+  expandirVista(): void {
+    this._router.navigate(['/seguimiento-busqueda']);
+  }
 
-  // /**
-  //  * Colapso la vista y regreso al estado inicial
-  //  */
-  // colapsarVista(): void {
-  //   this.router.navigate(['/seguimiento']);
-  // }
+  /**
+   * Colapso la vista y regreso al estado inicial
+   */
+  colapsarVista(): void {
+    this._router.navigate(['/seguimiento']);
+  }
 
   // /**
   //  * Ejecuto la búsqueda con los criterios recibidos del formulario
