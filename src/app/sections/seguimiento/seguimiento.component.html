@@ -87,7 +87,7 @@
 
             <!-- Mostrar resultados si hay búsqueda realizada -->
             <ng-container *ngIf="busquedaRealizada">
-              <app-resultados-busqueda [estudiantes]="estudiantesEncontrados" [busquedaRealizada]="busquedaRealizada"
+              <app-resultados-busqueda [estudiantes]="alunmosList()" [busquedaRealizada]="busquedaRealizada"
                 (estudianteSeleccionado)="abrirEstudiante($event)" (volver)="limpiarBusqueda()">
               </app-resultados-busqueda>
             </ng-container>

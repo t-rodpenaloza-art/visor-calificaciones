@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BmbCardComponent, BmbCardContentComponent, BmbCardHeaderComponent, BmbContainerButtonComponent, BmbHomeCardComponent, BmbInteractiveIconComponent, IBmbActionHeader } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { BuscadorEstudiantesComponent } from "../../components/buscador-estudiantes/buscador-estudiantes.component";
@@ -72,7 +72,7 @@ export class SeguimientoComponent {
 
   loadingInfo: boolean = false;
 
-  public alunmosList: any = [];
+  public alunmosList: WritableSignal<any[]> = signal([]);;
   public searchGrades: any;
   public loadingGrade: boolean = false;
   public loadingStudent: boolean = false;
@@ -93,7 +93,8 @@ export class SeguimientoComponent {
     private _router: Router,
     private api: ApiService,
     // private readonly redirect_canvas: RedirecCanvasService,
-    private pdf: HtmlcanvasService
+    private pdf: HtmlcanvasService,
+    private readonly estudiantesService: EstudiantesService
   ) {
     
     this.userProperties = JSON.parse(sessionStorage.getItem('userInfo') ?? '{}');
@@ -200,14 +201,14 @@ export class SeguimientoComponent {
 
       this.term = JSON.parse(sessionStorage.getItem('term') || '{}').term;
 
-      this.alunmosList = students.filter(resp => resp.login_id.startsWith('A') && resp.login_id.length === 9);
-      if (this.alunmosList && this.alunmosList.length == 0) {
+      this.alunmosList.set(students.filter(resp => resp.login_id.startsWith('A') && resp.login_id.length === 9));
+      if (this.alunmosList() && this.alunmosList().length == 0) {
         this.loadingGrade = false;
-        this.alunmosList = [];
+        this.alunmosList.set([]);
       } else {
         // console.log(students)
         // console.log(this.alunmosList)
-        this.MostrarInfoAlumno(this.alunmosList[0])
+        this.MostrarInfoAlumno(this.alunmosList()[0])
       }
 
     }, err => {
@@ -241,7 +242,7 @@ export class SeguimientoComponent {
 
     let urlSearch: any = environment.production ? `${environment.apiManager.baseurl}/tec/alumnos?${name}${lastname}${matricula}${periodo}nivel-academico=03&fields[alumnos]=nombre,apellidos,campus,region,nivel-academico,programa-academico,semestre` :
       "https://run.mocky.io/v3/44045f72-8451-4895-9796-0545bce55aaf";
-    this.api.genericRequestGet(urlSearch).subscribe((resultStudents: any) => {
+    this.api.genericRequestGetAPI(urlSearch).subscribe((resultStudents: any) => {
 
       let estudiantes = resultStudents.data.map((student: any) => {
         student.nombrePrograma = resultStudents.included.find((programa: any) => programa.id === student.relationships['programa-academico'].data.id)
@@ -251,10 +252,11 @@ export class SeguimientoComponent {
         student.semestre = student.relationships.semestre.data.id + " semestre"
         return student;
       })
-      this.alunmosList = estudiantes;
+      this.alunmosList.set(estudiantes);
       this.loadingGrade = false;
       this.loadingStudent = false;
-      if (this.alunmosList.length != 0) this.MostrarInfoAlumno(this.alunmosList[0])
+      console.log(this.alunmosList())
+      if (this.alunmosList().length != 0) this.MostrarInfoAlumno(this.alunmosList()[0])
     }, err => {
       this.loadingStudent = false;
       this.loadingGrade = false;
@@ -264,7 +266,7 @@ export class SeguimientoComponent {
   public SearchStudents(): void {
 
     this.searchGrades = new SearchGrade();
-    this.alunmosList = []
+    this.alunmosList.set([])
     this.alumnoSeleccionado = { cursos: [] };
 
     this.fuenteInfo = 'searchStudents';
@@ -472,18 +474,18 @@ export class SeguimientoComponent {
     apellidoMaterno: ''
   };
 
-  // constructor(private readonly estudiantesService: EstudiantesService) { }
+  // constructor() { }
 
-  // ngOnInit(): void {
-  //   this.cargarGruposMentoria();
-  // }
+  ngOnInit(): void {
+    this.cargarGruposMentoria();
+  }
 
-  // /**
-  //  * Cargo los grupos de mentoría del mentor al iniciar
-  //  */
-  // private cargarGruposMentoria(): void {
-  //   this.gruposMentoria = this.estudiantesService.obtenerGruposMentoria();
-  // }
+  /**
+   * Cargo los grupos de mentoría del mentor al iniciar
+   */
+  private cargarGruposMentoria(): void {
+    this.gruposMentoria = sessionStorage.getItem('tutoriaCourses') ? JSON.parse(sessionStorage.getItem('tutoriaCourses') ?? '[]') : [];
+  }
 
   /**
    * Expando la vista para mostrar el buscador completo
@@ -505,6 +507,15 @@ export class SeguimientoComponent {
    */
   realizarBusqueda(criterios: CriteriosBusqueda): void {
     this.criteriosBusqueda = { ...criterios };
+    this.searchGrades = {
+      student: {
+        matricula: criterios.matricula,
+        nombre: criterios.nombres,
+        apellidoPaterno: criterios.apellidoPaterno,
+        apellidoMaterno: criterios.apellidoMaterno
+      }
+    };
+    this.GetStudentsByFilter();
     // this.estudiantesEncontrados = this.estudiantesService.buscarEstudiantes(criterios);
     this.busquedaRealizada = true;
   }

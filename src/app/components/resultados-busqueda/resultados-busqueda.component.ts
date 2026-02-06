@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BmbContainerButtonComponent, BmbPaginatorComponent } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { Estudiante } from '../../models/estudiante.model';
@@ -17,7 +17,7 @@ import { Estudiante } from '../../models/estudiante.model';
 export class ResultadosBusquedaComponent implements OnChanges {
 
   // Lista completa de estudiantes encontrados
-  @Input() estudiantes: Estudiante[] = [];
+  estudiantes = input<any[]>([]);
   
   // Indica si ya se realizó una búsqueda (para mostrar mensaje de sin resultados)
   @Input() busquedaRealizada = false;
@@ -36,7 +36,7 @@ export class ResultadosBusquedaComponent implements OnChanges {
    * Calculo el total de páginas según los resultados
    */
   get totalPaginas(): number {
-    return Math.ceil(this.estudiantes.length / this.resultadosPorPagina);
+    return Math.ceil(this.estudiantes().length / this.resultadosPorPagina);
   }
 
   /**
@@ -45,7 +45,7 @@ export class ResultadosBusquedaComponent implements OnChanges {
   get estudiantesPaginados(): Estudiante[] {
     const inicio = (this.paginaActual - 1) * this.resultadosPorPagina;
     const fin = inicio + this.resultadosPorPagina;
-    return this.estudiantes.slice(inicio, fin);
+    return this.estudiantes().slice(inicio, fin);
   }
 
   /**
@@ -60,7 +60,7 @@ export class ResultadosBusquedaComponent implements OnChanges {
    */
   get indiceFin(): number {
     const fin = this.paginaActual * this.resultadosPorPagina;
-    return Math.min(fin, this.estudiantes.length);
+    return Math.min(fin, this.estudiantes().length);
   }
 
   /**

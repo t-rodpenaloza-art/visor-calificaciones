@@ -126,6 +126,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
           finalize(() => {
             this.loadingGrade = false;
             console.log('Materias de tutoría cargadas:', tempMaterias);
+            sessionStorage.setItem('tutoriaCourses', JSON.stringify(tempMaterias));
             this.listCourses.set([...tempMaterias]);
             res();
           })
