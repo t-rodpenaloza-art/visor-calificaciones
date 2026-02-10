@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { 
   BmbContainerButtonComponent,
   BmbInteractiveIconComponent,
@@ -25,14 +25,11 @@ import { SearchGrade } from '../../models/searchGrade';
   selector: 'app-tarjeta-seguimiento',
   standalone: true,
   imports: [
-    CommonModule,
-    // Componentes Bamboo según documentación
     BmbContainerButtonComponent,
     BmbInteractiveIconComponent,
     BmbCardComponent,
     BmbCardHeaderComponent,
     BmbCardContentComponent,
-    // Componentes propios
     BuscadorEstudiantesComponent,
     ResultadosBusquedaComponent,
     ListGroupsComponent

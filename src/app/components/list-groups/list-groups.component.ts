@@ -1,13 +1,13 @@
 import { Component, input, Input, OnChanges, OnInit } from '@angular/core';
 import { BmbCardComponent, BmbCardContentComponent } from "@ti-tecnologico-de-monterrey-oficial/ds-ng";
 import { GrupoMentoria } from '../../models/estudiante.model';
-import { CommonModule } from '@angular/common';
+
 import { SearchGrades } from '../../models/searchGrades';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-groups',
-  imports: [BmbCardComponent, BmbCardContentComponent, CommonModule],
+  imports: [BmbCardComponent, BmbCardContentComponent],
   templateUrl: './list-groups.component.html',
   styleUrl: './list-groups.component.scss'
 })

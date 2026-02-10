@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BmbInputComponent, BmbButtonDirective } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { CriteriosBusqueda } from '../../models/estudiante.model';
@@ -8,11 +8,10 @@ import { CriteriosBusqueda } from '../../models/estudiante.model';
   selector: 'app-buscador-estudiantes',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     BmbInputComponent,
     BmbButtonDirective
-  ],
+],
   templateUrl: './buscador-estudiantes.component.html',
   styleUrl: './buscador-estudiantes.component.scss'
 })

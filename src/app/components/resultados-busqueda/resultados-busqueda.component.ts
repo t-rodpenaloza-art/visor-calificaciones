@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnChanges, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { BmbContainerButtonComponent, BmbPaginatorComponent } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { Estudiante } from '../../models/estudiante.model';
 
@@ -7,10 +7,9 @@ import { Estudiante } from '../../models/estudiante.model';
   selector: 'app-resultados-busqueda',
   standalone: true,
   imports: [
-    CommonModule,
     BmbContainerButtonComponent,
     BmbPaginatorComponent
-  ],
+],
   templateUrl: './resultados-busqueda.component.html',
   styleUrl: './resultados-busqueda.component.scss'
 })

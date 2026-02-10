@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GrupoMentoria } from '../../models/estudiante.model';
 
 @Component({
   selector: 'app-lista-grupos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './lista-grupos.component.html',
   styleUrl: './lista-grupos.component.scss'
 })

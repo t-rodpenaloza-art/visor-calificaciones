@@ -1,5 +1,5 @@
 import { Component, output, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { BmbCardComponent, BmbCardContentComponent, BmbCardHeaderComponent, BmbContainerButtonComponent, BmbHomeCardComponent, BmbInteractiveIconComponent, IBmbActionHeader } from '@ti-tecnologico-de-monterrey-oficial/ds-ng';
 import { BuscadorEstudiantesComponent } from "../../components/buscador-estudiantes/buscador-estudiantes.component";
 import { ResultadosBusquedaComponent } from "../../components/resultados-busqueda/resultados-busqueda.component";
@@ -23,9 +23,6 @@ import moment from 'moment';
 @Component({
   selector: 'app-seguimiento',
   imports: [
-    // Angular Common Module para directivas como ngFor
-    CommonModule,
-    // Componentes Bamboo según documentación
     BmbContainerButtonComponent,
     BmbInteractiveIconComponent,
     BmbCardComponent,
@@ -35,7 +32,7 @@ import moment from 'moment';
     ResultadosBusquedaComponent,
     ListGroupsComponent,
     BmbHomeCardComponent
-  ],
+],
   templateUrl: './seguimiento.component.html',
   styleUrl: './seguimiento.component.scss'
 })
@@ -101,9 +98,9 @@ export class SeguimientoComponent {
 
     this.getSubAccounts();
 
-    if (this._router.getCurrentNavigation()?.extras.state) {
+    if (this._router.currentNavigation()?.extras.state) {
 
-      this.routeState = this._router.getCurrentNavigation()?.extras.state;
+      this.routeState = this._router.currentNavigation()?.extras.state;
       this.searchGrades = this.routeState.data;
       this.fuenteInfo = this.searchGrades.type;
 

@@ -1,24 +1,25 @@
 <!-- Sección de mis grupos de mentoría -->
 <div class="lista-grupos-container">
   <h3 class="titulo-seccion">Mis grupos de mentoría</h3>
-  
+
   <!-- Uso button para mejor accesibilidad en lugar de div con role -->
-  <button 
-    *ngFor="let grupo of grupos" 
-    type="button"
-    class="grupo-card"
-    (click)="seleccionarGrupo(grupo)">
-    
-    <div class="grupo-info">
-      <span class="grupo-nombre">{{ grupo.nombre }}</span>
-      <span class="grupo-clave">{{ grupo.clave }}</span>
-    </div>
-    
-    <span class="grupo-arrow">›</span>
-  </button>
-  
+  @for (grupo of grupos; track grupo) {
+    <button
+      type="button"
+      class="grupo-card"
+      (click)="seleccionarGrupo(grupo)">
+      <div class="grupo-info">
+        <span class="grupo-nombre">{{ grupo.nombre }}</span>
+        <span class="grupo-clave">{{ grupo.clave }}</span>
+      </div>
+      <span class="grupo-arrow">›</span>
+    </button>
+  }
+
   <!-- Mensaje cuando no hay grupos -->
-  <div *ngIf="grupos.length === 0" class="sin-grupos">
-    No tienes grupos de mentoría asignados
-  </div>
+  @if (grupos.length === 0) {
+    <div class="sin-grupos">
+      No tienes grupos de mentoría asignados
+    </div>
+  }
 </div>
