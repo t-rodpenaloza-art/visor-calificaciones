@@ -72,7 +72,7 @@ export class SeguimientoComponent {
 
   loadingInfo: boolean = false;
 
-  public alunmosList: WritableSignal<any[]> = signal([]);;
+  public alunmosList: WritableSignal<any[]> = signal([]);
   public searchGrades: any;
   public loadingGrade: boolean = false;
   public loadingStudent: boolean = false;

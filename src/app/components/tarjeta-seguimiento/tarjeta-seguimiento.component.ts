@@ -86,7 +86,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
       
       this.loadingGrade = true
       let tempMaterias:any = [];
-      let nomina: string = "L03121627"; // Aquí deberías obtener la nómina del usuario actual, posiblemente desde el StateService o sessionStorage
+      let nomina: string = "L03532317"; // Aquí deberías obtener la nómina del usuario actual, posiblemente desde el StateService o sessionStorage
       let periodo = JSON.parse(sessionStorage.getItem('term') ?? '{}').term;
       const token = JSON.parse(sessionStorage.getItem('canvas_token') ?? '{}');
       
@@ -118,7 +118,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
           mergeMap((cruso: any) => {
             let urlCursos =`${environment.apiManager.baseurl}/tec/cursos-unificados/${cruso.sis_course_id}?ejercicio-academico=${periodo}`
             return this.api.genericRequestGetAPI(urlCursos).pipe(
-              filter((resp: any) => !resp.data[0].attributes.indicadorMateriaTutorias),
+              filter((resp: any) => resp.data[0].attributes.indicadorMateriaTutorias),
               //filter((resp: any) => resp.data[0].attributes.numeroReferenciaCurso == 6890),
               catchError(err => of([]))
             )
@@ -257,7 +257,7 @@ export class TarjetaSeguimientoComponent implements OnInit {
    * Expando la vista para mostrar el buscador completo
    */
   expandirVista(): void {
-    this._router.navigate(['/seguimiento-busqueda']);
+    this._router.navigate(['/seguimiento/seguimiento-busqueda']);
   }
 
   /**

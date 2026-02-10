@@ -5,7 +5,7 @@
             {{ title() }}
         </h3>
     </div>
-
+    <hr>
     <!-- Lista de grupos usando Generic Card (bmb-card) -->
     <div class="grupos-lista">
         @for(grupo of gruposMentoria(); track grupo.id) {
@@ -27,5 +27,12 @@
                 </bmb-card-content>
             </bmb-card>
         }
+
+        @if(gruposMentoria().length === 0) {
+            <div class="sin-grupos">
+                <p>No tienes grupos de mentoría asignados.</p>
+            </div>
+        }
+
     </div>
 <!-- </div> -->

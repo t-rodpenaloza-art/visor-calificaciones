@@ -1,15 +1,15 @@
 <div class="resultados-container">
 
   <!-- Encabezado con botón regresar y contador de resultados -->
-  <div class="resultados-header" *ngIf="estudiantes.length > 0">
+  <div class="resultados-header">
     <button type="button" class="btn-regresar-resultados" (click)="volverAGrupos()" aria-label="Volver a grupos">
       <span class="material-icons grupo-arrow">chevron_left</span>
     </button>
-    <h3 class="header-titulo">Resultado de búsqueda ({{ estudiantes.length }})</h3>
+    <h3 class="header-titulo">Resultado de búsqueda ({{ estudiantes().length }})</h3>
   </div>
 
   <!-- Lista de estudiantes encontrados - BAMBOO -->
-  <div class="lista-estudiantes" *ngIf="estudiantes.length > 0">
+  <div class="lista-estudiantes" *ngIf="estudiantes().length > 0">
     <bmb-container-button *ngFor="let estudiante of estudiantesPaginados" [title]="estudiante.nombreCompleto"
       [subtitle]="'[' + estudiante.matricula + ']'" [iconLeft]="'account_circle'" [iconRight]="'chevron_right'"
       [alternative]="true" (onButton)="seleccionarEstudiante(estudiante)">
@@ -24,8 +24,7 @@
   </div>
 
   <!-- Mensaje cuando no hay resultados -->
-  <div class="sin-resultados" *ngIf="busquedaRealizada && estudiantes.length === 0">
-    <span class="material-symbols-outlined">person_off</span>
+  <div class="sin-resultados" *ngIf="busquedaRealizada && estudiantes().length === 0">
     <p>No se encontraron resultados</p>
   </div>
 </div>
