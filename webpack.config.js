@@ -6,7 +6,7 @@ module.exports = withModuleFederationPlugin({
 
   exposes: {
     "./Component": "./src/app/app.component.ts",
-    "./TarjetaSeguimiento": "./src/app/WebComponents/tarjeta-seguimiento-estudiantes.ts",
+    "./TarjetaSeguimiento": "./src/app/webcomponents/tarjeta-seguimiento-estudiantes.ts",
   },
 
   shared: {
