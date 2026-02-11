@@ -43,8 +43,7 @@ jobs:
           cp -r dist/* deploy/
           cp host.json deploy/
           cp package.json deploy/
-          cp package-lock.json deploy/
-          cd deploy && npm ci --omit=dev
+          cd deploy && npm install --omit=dev
 
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
