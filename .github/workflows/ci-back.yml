@@ -17,9 +17,6 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     name: Build and Deploy Backend
-    defaults:
-      run:
-        working-directory: ./back
 
     steps:
       - uses: actions/checkout@v4
@@ -32,14 +29,25 @@ jobs:
           cache-dependency-path: back/package-lock.json
 
       - name: Install dependencies
+        working-directory: ./back
         run: npm ci
 
       - name: Build TypeScript
+        working-directory: ./back
         run: npm run build
+
+      - name: Prepare deployment package
+        working-directory: ./back
+        run: |
+          mkdir -p deploy
+          cp -r dist/* deploy/
+          cp host.json deploy/
+          cp package.json deploy/
+          cd deploy && npm ci --omit=dev
 
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
         with:
           app-name: 'visor'
-          package: './back'
+          package: './back/deploy'
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
