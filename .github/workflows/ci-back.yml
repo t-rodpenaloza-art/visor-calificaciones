@@ -43,7 +43,9 @@ jobs:
           cp -r dist/* deploy/
           cp host.json deploy/
           cp package.json deploy/
-          cd deploy && npm install --omit=dev
+          cd deploy
+          npm install --omit=dev
+          node -e "const p=require('./package.json'); p.main='functions/*.js'; require('fs').writeFileSync('package.json',JSON.stringify(p,null,2))"
 
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
