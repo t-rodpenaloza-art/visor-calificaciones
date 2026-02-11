@@ -1,0 +1,18 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "CANVAS_API_BASE_URL": "https://tecdemonterrey.test.instructure.com",
+    "CANVAS_CLIENT_ID": "143280000000000135",
+    "CANVAS_CLIENT_SECRET": "XecseqiLGeSmJLqJ2q73fxrP190s89gxU3kbDi0JkLuxU4HAMJtzHplkdAO4lHSN",
+    "CANVAS_REDIRECT_URI": "http://localhost:7071/api/oauth/callback",
+    "CANVAS_SCOPES": "url:GET|/api/v1/courses/:id url:GET|/api/v1/courses/:course_id/assignments url:GET|/api/v1/courses/:course_id/enrollments url:GET|/api/v1/courses/:course_id/students/submissions",
+    "FRONTEND_URL": "http://localhost:4201",
+    "TABLE_STORAGE_CONNECTION": "UseDevelopmentStorage=true"
+  },
+  "Host": {
+    "CORS": "http://localhost:4201",
+    "CORSCredentials": true
+  }
+}
