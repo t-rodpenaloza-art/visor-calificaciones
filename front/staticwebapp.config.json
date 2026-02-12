@@ -2,5 +2,10 @@
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [ "*.css", "*.js", "*.png", "*.jpg", "*.svg", "*.ico", "*.woff", "*.woff2" ]
+  },
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "https://mitecpprd.tec.mx",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization"
   }
 }
