@@ -2,12 +2,12 @@
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
     "CANVAS_API_BASE_URL": "https://tecdemonterrey.test.instructure.com",
-    "CANVAS_CLIENT_ID": "143280000000000135",
-    "CANVAS_CLIENT_SECRET": "XecseqiLGeSmJLqJ2q73fxrP190s89gxU3kbDi0JkLuxU4HAMJtzHplkdAO4lHSN",
+    "CANVAS_CLIENT_ID": "TU_CLIENT_ID_AQUI",
+    "CANVAS_CLIENT_SECRET": "TU_CLIENT_SECRET_AQUI",
     "CANVAS_REDIRECT_URI": "http://localhost:7071/api/oauth/callback",
-    "CANVAS_SCOPES": "url:GET|/api/v1/courses/:id url:GET|/api/v1/courses/:course_id/assignments url:GET|/api/v1/courses/:course_id/enrollments url:GET|/api/v1/courses/:course_id/students/submissions",
+    "CANVAS_SCOPES": "url:GET|/api/v1/accounts/:account_id/sub_accounts url:GET|/api/v1/announcements url:GET|/api/v1/accounts/:account_id/scopes url:GET|/api/v1/courses/:course_id/assignments url:GET|/api/v1/courses/:course_id/assignment_groups/:assignment_group_id/assignments url:GET|/api/v1/courses/:course_id/assignments/:id url:GET|/api/v1/courses url:GET|/api/v1/courses/:id url:GET|/api/v1/courses/:course_id/users url:GET|/api/v1/courses/:course_id/todo url:GET|/api/v1/users/:user_id/courses url:GET|/api/v1/users/self/favorites/courses url:GET|/api/v1/courses/:course_id/folders url:GET|/api/v1/folders/:id/folders url:GET|/api/v1/folders/:id/files url:GET|/api/v1/courses/:course_id/students/submissions url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id url:GET|/api/v1/users/:id",
     "FRONTEND_URL": "http://localhost:4201",
     "TABLE_STORAGE_CONNECTION": "UseDevelopmentStorage=true"
   },
