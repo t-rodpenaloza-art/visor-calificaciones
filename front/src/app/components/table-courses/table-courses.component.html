@@ -1,0 +1,91 @@
+<h5>
+  {{ alumno.nombre }} - {{ alumno.matricula }}
+</h5>
+
+<div class="badges-wrapper">
+  <div class="badges-container">
+    <bmb-badge [appearance]="'creative_rum'"
+               [text]="'PrepaTec Bicultural'"
+               [container]="true">
+    </bmb-badge>
+
+    <bmb-badge [appearance]="'creative_rum'"
+               [text]="'Semestre 06'"
+               [container]="true">
+    </bmb-badge>
+
+    <bmb-badge [appearance]="'creative_rum'"
+               [text]="'Campus Hidalgo'"
+               [container]="true">
+    </bmb-badge>
+  </div>
+
+  <a href="#" class="boleta-link">
+    <span class="material-icons">description</span>
+    Boleta de calificaciones
+  </a>
+  <a href="#" class="link-imprimir">
+    <span class="material-icons">print</span>
+  </a>
+</div>
+<hr>
+<table class="bmb_table-simple">
+  <thead>
+    <tr class="seccion-first-header">
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col" colspan="4">
+        Calificaciones
+      </th>
+      <th scope="col" colspan="4">
+        Faltas
+      </th>
+      <th scope="col"></th>
+    </tr>
+    <tr class="seccion-second-header">
+      <th scope="col">Grupo</th>
+      <th scope="col">Materia</th>
+      <th scope="col">P1</th>
+      <th scope="col">P2</th>
+      <th scope="col">Promedio</th>
+      <th scope="col">Final</th>
+      <th scope="col">P1</th>
+      <th scope="col">P2</th>
+      <th scope="col">PF</th>
+      <th scope="col">Total</th>
+      <th scope="col">
+        <span class="material-icons">info</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(course of courses; track course.grupo) {
+    <tr>
+      <td>{{ course.grupo }}</td>
+      <td>{{ course.materia }}</td>
+
+      @if(course.calificacionParcial1 !== null) {
+      <td class="borde-izquierdo" [class.numeroRojo]="course.calificacionParcial1 < 70">{{ course.calificacionParcial1 }}</td>
+      } @else {
+      <td class="borde-izquierdo">[~]</td>
+      }
+
+      @if(course.calificacionParcial2 !== null) {
+      <td [class.numeroRojo]="course.calificacionParcial2 < 70">{{ course.calificacionParcial2 }}</td>
+      } @else {
+      <td>[~]</td>
+      }
+
+      <td [class.numeroRojo]="course.promedioAcumulado < 70">{{ course.promedioAcumulado }}</td>
+      <td>{{ course.calificacionFinal }}</td>
+      <td class="borde-izquierdo">{{ course.faltasP1 }}</td>
+      <td>{{ course.faltasP2 }}</td>
+      <td>{{ course.faltasPF }}</td>
+      <td>{{ course.totalFaltas }}</td>
+      <td>
+        <span class="material-icons">info</span>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

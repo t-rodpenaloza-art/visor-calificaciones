@@ -1,0 +1,27 @@
+<div class="main-container">
+
+  <bmb-card-content [padding]="'s'">
+
+    <div class="grid-container">
+      <div class="grid-column">
+
+        <app-student-list [course]="'Creatividad, acción y servicio III'"
+                          [courseID]="'PD6013.200'"
+                          [alumnos]="alumnos"
+                          (alumnoSeleccionado)="onAlumnoSeleccionado($event)">
+        </app-student-list>
+
+      </div>
+
+      <div class="grid-column">
+        <!-- Columna Derecha -->
+        <app-table-courses [alumno]="alumnoSeleccionado || alumnos[0]"
+                           [courses]="courses">
+        </app-table-courses>
+
+      </div>
+    </div>
+
+  </bmb-card-content>
+
+</div>
