@@ -1,0 +1,41 @@
+<h3>
+  {{ course }} - {{ courseID }}
+</h3>
+<hr>
+
+<form [formGroup]="userForm" class="mb-4">
+  <bmb-dropdown [required]="true"
+                [showIcon]="true"
+                [icon]="'bolt'"
+                [options]="alumnosTransformed"
+                [errorMessage]="'Error al seleccionar estudiante'"
+                [label]="''"
+                [name]="'dropdown'"
+                [isMultiSelect]="false"
+                [tooltip]="'Tool tip'"
+                [disabled]="false"
+                [value]="''"
+                [isFilterable]="true"
+                [inputId]="'this-value-should-be-unique'"
+                [control]="getFormControl('dropdown')"
+                (onValueChange)="onValueChange($event)">
+  </bmb-dropdown>
+</form>
+
+<bmb-list-group borderRadius="m"
+                margin="m"
+                borderType="rounded"
+                margin="m"
+                padding="m"
+                [isMultipleSelection]='false'
+                [showControls]='false'
+                [isRowView]='false'>
+  @for(alumno of alumnos; track alumno) {
+  <bmb-list-group-item id="list-group-item-{{ alumno.matricula }}"
+                       [personalizedTemplate]="true"
+                       (click)="selectAlumno(alumno)">
+    {{ alumno.matricula }}<br>
+    {{ alumno.nombre }}
+  </bmb-list-group-item>
+  }
+</bmb-list-group>
