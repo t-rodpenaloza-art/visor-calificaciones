@@ -20,6 +20,7 @@ import { ApiService } from '../../services/api.service';
 import { Cursos } from '../../models/canvas.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SearchGrade } from '../../models/searchGrade';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tarjeta-seguimiento',
@@ -60,15 +61,20 @@ export class TarjetaSeguimientoComponent implements OnInit {
 
   constructor(
     private _router: Router,
+    private route: ActivatedRoute,
   ) {
   }
 
   async ngOnInit(): Promise<void> {
+    // Capturar token del OAuth callback
+    this.route.queryParams.subscribe(params => {
+      if (params['access_token']) {
+        this.api.initFromOAuthCallback(params);
+      }
+    });
 
     this.usuario = JSON.parse(sessionStorage.getItem('userInfo') ?? '{}');
-
     this.ObtenerCursos();
-
     this.loadingGrade = false;
   }
 

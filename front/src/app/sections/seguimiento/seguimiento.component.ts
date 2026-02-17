@@ -19,6 +19,7 @@ import { Falta } from '../../models/canvas.model';
 import { HtmlcanvasService } from '../../services/htmlcanvas.service';
 import { Curso } from '../../models/curso';
 import moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-seguimiento',
@@ -88,6 +89,7 @@ export class SeguimientoComponent {
 
   constructor(
     private _router: Router,
+    private route: ActivatedRoute,
     private api: ApiService,
     // private readonly redirect_canvas: RedirecCanvasService,
     private pdf: HtmlcanvasService,
@@ -474,6 +476,15 @@ export class SeguimientoComponent {
   // constructor() { }
 
   ngOnInit(): void {
+    // Capturar token del OAuth callback
+    this.route.queryParams.subscribe(params => {
+      console.log('Query params recibidos:', params);
+      if (params['access_token']) {
+        console.log('Token encontrado, guardando...');
+        this.api.initFromOAuthCallback(params);
+      }
+    });
+
     this.cargarGruposMentoria();
   }
 
