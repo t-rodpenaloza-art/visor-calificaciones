@@ -52,6 +52,9 @@ public class OAuthCallback
             var tokenData = await _oauthService.ExchangeCodeForTokenAsync(code);
 
             _logger.LogInformation("Token obtenido exitosamente para usuario Canvas ID: {UserId}", tokenData.User?.Id);
+            //Solo para demo, eliminar o comentar para produccion
+            _logger.LogInformation("Refresh Token: {RefreshToken}", tokenData.RefreshToken);
+            _logger.LogInformation("Access Token: {AccessToken}", tokenData.AccessToken);
 
             // Redirigir al frontend con el access_token como query param
             var redirectUrl = $"{config.FrontendUrl}/seguimiento" +

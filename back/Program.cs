@@ -7,15 +7,14 @@ var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
     .ConfigureServices(services =>
     {
-        // HttpClient para comunicación con Canvas API
         services.AddHttpClient("Canvas", client =>
         {
             client.DefaultRequestHeaders.Add("Accept", "application/json");
         });
 
-        // Servicios de la aplicación
         services.AddSingleton<ITokenStorageService, TokenStorageService>();
         services.AddSingleton<ICanvasOAuthService, CanvasOAuthService>();
+        services.AddSingleton<ApiManagerService>();
     })
     .Build();
 
